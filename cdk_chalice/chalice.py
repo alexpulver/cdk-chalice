@@ -1,53 +1,60 @@
 import json
 import os
-import tarfile
-import tempfile
 import uuid
 from typing import Dict, Any
 
 import docker
 from aws_cdk import (
     aws_s3_assets as assets,
-    aws_iam as iam,
     core as cdk
 )
 
 
+class ChaliceError(Exception):
+    pass
+
+
 class Chalice(cdk.Construct):
     """
-    Packages AWS Chalice application into AWS SAM format and enriches the resulting
-    SAM template with additional configuration values.
+    Adds the provided stage configuration to SOURCE_DIR/.chalice/config.json.
+    Stage name will be the string representation of current CDK scope.
 
-    Currently supports only API handler Lambda functions. The construct requires
-    Chalice application to have Dockerfile.cdk that should package the application
-    to /chalice.out. I.e. the last line should be:
+    Packages the application into AWS SAM format and imports the resulting template
+    into the construct tree under the provided scope.
 
-    ``RUN chalice package --stage cdk /chalice.out``
+    At this time, only API handler Lambda function is supported for deployment.
+    Further work is required to automatically generate CDK assets for additional
+    Lambda functions (e.g. triggered on SQS message).
     """
 
+    _SUPPORTED_PYTHON_VERSIONS = ['2', '2.7', '3', '3.6', '3.7', '3.8']
+
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 api_handler_env_vars: Dict[str, Any] = None,
-                 api_handler_role: iam.IRole = None,
-                 cache_build: bool = False, **kwargs) -> None:
+                 python_version: str, stage_config: Dict[str, Any],
+                 **kwargs) -> None:
         """
         :param str source_dir: Location of Chalice source code with Dockerfile.cdk
             Dockerfile.cdk should end with 'RUN chalice package --stage STAGE /chalice.out'
-        :param Dict[str, Any] api_handler_env_vars: Environment variables to set for
-            api_handler Lambda function
-        :param iam.IRole api_handler_role: Existing IAM role for api_handler
-            Lambda function. Will create a new IAM role if not specified
-        :param bool cache_build: If set to True, will not cleanup Docker images
-            created as part of Chalice package process, to speedup consequent builds
+        :param str python_version: Python version of the Chalice application
+            Supported versions are 2, 2.7, 3, 3.6, 3.7, 3.8
+        :param Dict[str, Any] stage_config: Chalice stage configuration.
+            The configuration object should have the same structure as Chalice JSON
+            stage configuration.
         """
         super().__init__(scope, id, **kwargs)
 
         self.source_dir = source_dir
-        self.api_handler_env_vars = api_handler_env_vars
-        if api_handler_role:
-            self.api_handler_role = api_handler_role
+        self.stage_name = scope.to_string()
+        self.stage_config = stage_config
+        if python_version not in Chalice._SUPPORTED_PYTHON_VERSIONS:
+            raise ChaliceError(
+                'Unsupported Python version. Supported versions are: '
+                ', '.join(Chalice._SUPPORTED_PYTHON_VERSIONS)
+            )
         else:
-            self.api_handler_role = self._create_iam_role()
-        self.cache_build = cache_build
+            self.python_version = python_version
+
+        self._create_stage_with_config()
 
         chalice_out_dir = os.path.join(os.getcwd(), 'chalice.out')
         sam_package_dir = self._package_app(chalice_out_dir)
@@ -55,23 +62,38 @@ class Chalice(cdk.Construct):
 
         cdk.CfnInclude(self, 'ChaliceApp', template=sam_template)
 
+    def _create_stage_with_config(self):
+        config_path = os.path.join(self.source_dir, '.chalice/config.json')
+        with open(config_path, 'r+') as config_file:
+            config = json.load(config_file)
+            config['stages'][self.stage_name] = self.stage_config
+            config_file.seek(0)
+            config_file.write(json.dumps(config, indent=2))
+            config_file.truncate()
+
     def _package_app(self, chalice_out_dir: str) -> str:
         source_dir_realpath = os.path.realpath(self.source_dir)
-        dockerfile_path = os.path.join(source_dir_realpath, 'Dockerfile.cdk')
         sam_package_dir = os.path.join(chalice_out_dir, uuid.uuid4().hex)
 
-        client = docker.from_env()
-        print('Building Chalice app')
-        image, _ = client.images.build(path=source_dir_realpath, rm=True,
-                                       dockerfile=dockerfile_path)
-        print('Getting Chalice app build artifacts')
-        container = client.containers.create(image)
-        Chalice.get_dir_from_container(container, '/chalice.out', sam_package_dir)
-        container.remove()
-        if not self.cache_build:
-            client.images.remove(image.id)
+        docker_image = f'python:{self.python_version}'
+        docker_volumes = {
+            source_dir_realpath: {'bind': '/app', 'mode': 'rw'},
+            sam_package_dir: {'bind': '/chalice.out', 'mode': 'rw'}
+        }
+        docker_command = (
+            'bash -c "pip install --no-cache-dir -r requirements.txt; '
+            f'chalice package --stage {self.stage_name} /chalice.out"'
+        )
+        # Chalice requires AWS_DEFAULT_REGION to be set for package command.
+        docker_environment = {'AWS_DEFAULT_REGION': 'us-east-1'}
 
-        return os.path.join(sam_package_dir, 'chalice.out')
+        client = docker.from_env()
+        print(f'Packaging Chalice app for {self.stage_name}')
+        client.containers.run(
+            docker_image, command=docker_command, environment=docker_environment,
+            remove=True, volumes=docker_volumes, working_dir='/app')
+
+        return sam_package_dir
 
     def _update_sam_template(self, sam_package_dir):
         deployment_zip_path = os.path.join(sam_package_dir, 'deployment.zip')
@@ -86,23 +108,5 @@ class Chalice(cdk.Construct):
                 'Bucket': sam_deployment_asset.s3_bucket_name,
                 'Key': sam_deployment_asset.s3_object_key
             }
-            properties['Role'] = self.api_handler_role.role_arn
-            if self.api_handler_env_vars:
-                properties['Environment']['Variables'] = self.api_handler_env_vars
 
         return sam_template
-
-    def _create_iam_role(self):
-        lambda_service_principal = iam.ServicePrincipal('lambda.amazonaws.com')
-
-        return iam.Role(self, 'LambdaRole', assumed_by=lambda_service_principal)
-
-    @staticmethod
-    def get_dir_from_container(container, dir_path, target_path):
-        with tempfile.NamedTemporaryFile() as temporary_file:
-            stream, stat = container.get_archive(dir_path)
-            for data in stream:
-                temporary_file.write(data)
-            temporary_file.seek(0)
-            with tarfile.open(mode='r', fileobj=temporary_file) as tarobj:
-                tarobj.extractall(path=target_path)
