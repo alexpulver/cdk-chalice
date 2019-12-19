@@ -12,7 +12,6 @@ setup(
     version='0.2.0',
 
     description='AWS CDK construct for AWS Chalice',
-    long_description=long_description,
 
     url='https://github.com/alexpulver/cdk-chalice',
 
