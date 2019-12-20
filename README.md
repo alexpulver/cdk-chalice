@@ -11,9 +11,6 @@ At this time, only API handler Lambda function is supported for deployment.
 Further work is required to automatically generate CDK assets for additional
 Lambda functions (e.g. triggered on SQS message).
 
-The following Python versions are currently supported for Chalice app:
-`2`, `2.7`, `3`, `3.6`, `3.7`, `3.8`
-
 #### Usage example
 ```python
 from aws_cdk import (
