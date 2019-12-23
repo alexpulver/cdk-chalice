@@ -31,11 +31,10 @@ class Chalice(cdk.Construct):
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict[str, Any], use_container: bool = False,
-                 **kwargs) -> None:
+                 stage_config: Dict, use_container: bool = False, **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
-        :param Dict[str, Any] stage_config: Chalice stage configuration.
+        :param Dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
         :param bool use_container: If your functions depend on packages that have
