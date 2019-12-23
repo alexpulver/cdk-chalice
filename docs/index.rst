@@ -19,7 +19,7 @@ this part of the documentation is for you.
 .. toctree::
    :maxdepth: 2
 
-   source/api
+   api
 
 Indices and tables
 ==================

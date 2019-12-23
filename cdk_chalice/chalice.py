@@ -34,8 +34,7 @@ class Chalice(cdk.Construct):
                  stage_config: Dict[str, Any], use_container: bool = False,
                  **kwargs) -> None:
         """
-        :param str source_dir: Location of Chalice source code with Dockerfile.cdk
-            Dockerfile.cdk should end with 'RUN chalice package --stage STAGE /chalice.out'
+        :param str source_dir: Path to Chalice application source code
         :param Dict[str, Any] stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
