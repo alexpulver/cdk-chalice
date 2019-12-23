@@ -9,7 +9,7 @@ long_description = open('README.md', 'r', encoding='utf-8').read()
 setup(
     name='cdk-chalice',
 
-    version='0.3.0',
+    version='0.4.0',
 
     description='AWS CDK construct for AWS Chalice',
 
