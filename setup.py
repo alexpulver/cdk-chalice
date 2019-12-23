@@ -44,7 +44,8 @@ setup(
     install_requires=[
         'aws_cdk.aws_iam>=1.18.0',
         'aws_cdk.aws_s3_assets>=1.18.0',
-        'aws_cdk.core>=1.18.0'
+        'aws_cdk.core>=1.18.0',
+        'docker'
     ],
 
     python_requires='>=3.6',
