@@ -31,7 +31,8 @@ class Chalice(cdk.Construct):
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict, use_container: bool = False, **kwargs) -> None:
+                 stage_config: Dict, use_container: bool = False, docker_image: str = "",
+                 docker_init_commands=None, **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
         :param Dict stage_config: Chalice stage configuration.
@@ -40,6 +41,9 @@ class Chalice(cdk.Construct):
         :param bool use_container: If your functions depend on packages that have
             natively compiled dependencies, use this flag to build the Chalice app
             inside an AWS Lambda-like Docker container
+        :param docker_image: provide your docker image name, in case of empty will use default docker image
+        :param docker_init_commands: provide list of commands to execute before 'chalice package'
+            for example: ['pip install awscli --upgrade', 'pip install chalice']
         :raises ChaliceError: Raised when an unsupported Python version is used
         """
         super().__init__(scope, id, **kwargs)
@@ -48,6 +52,10 @@ class Chalice(cdk.Construct):
         self.stage_name = scope.to_string()
         self.stage_config = stage_config
         self.use_container = use_container
+        self.docker_image = docker_image
+        if docker_init_commands is None:
+            docker_init_commands = []
+        self.docker_init_commands = docker_init_commands
 
         self._create_stage_with_config()
         sam_package_dir = self._package_app()
@@ -78,14 +86,20 @@ class Chalice(cdk.Construct):
         return sam_package_dir
 
     def _package_app_container(self, env, sam_package_dir):
-        python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
-        docker_image = f'lambci/lambda:build-python{python_version}'
+        if not self.docker_image:
+            python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
+            docker_image = f'lambci/lambda:build-python{python_version}'
+        else:
+            docker_image = self.docker_image
+
         docker_volumes = {
             self.source_dir: {'bind': '/app', 'mode': 'rw'},
             sam_package_dir: {'bind': '/chalice.out', 'mode': 'rw'}
         }
+
         docker_command = (
-            'bash -c "pip install --no-cache-dir -r requirements.txt; '
+            f'bash -c "{"".join(command + "; " for command in self.docker_init_commands)}'
+            'pip install --no-cache-dir -r requirements.txt; '
             f'chalice package --stage {self.stage_name} /chalice.out"'
         )
 
