@@ -5,6 +5,7 @@ import subprocess
 import sys
 import uuid
 from typing import Dict, Any
+from cdk_chalice.docker_config import DockerConfig
 
 import docker
 from aws_cdk import (
@@ -31,19 +32,16 @@ class Chalice(cdk.Construct):
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict, use_container: bool = False, docker_image: str = "",
-                 docker_init_commands=None, **kwargs) -> None:
+                 stage_config: Dict, docker_config: DockerConfig = None, **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
         :param Dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
-        :param bool use_container: If your functions depend on packages that have
-            natively compiled dependencies, use this flag to build the Chalice app
-            inside an AWS Lambda-like Docker container
-        :param docker_image: provide your docker image name, in case of empty will use default docker image
-        :param docker_init_commands: provide list of commands to execute before 'chalice package'
-            for example: ['pip install awscli --upgrade', 'pip install chalice']
+        :param DockerConfig docker_config: If your functions depend on packages that have
+            natively compiled dependencies, build the Chalice app inside an AWS Lambda-like Docker container
+            use can define in which docker image to run, pass extra environment variables to your container
+            in case of None: it will build Chalice on your OS.
         :raises ChaliceError: Raised when an unsupported Python version is used
         """
         super().__init__(scope, id, **kwargs)
@@ -51,11 +49,7 @@ class Chalice(cdk.Construct):
         self.source_dir = source_dir
         self.stage_name = scope.to_string()
         self.stage_config = stage_config
-        self.use_container = use_container
-        self.docker_image = docker_image
-        if docker_init_commands is None:
-            docker_init_commands = []
-        self.docker_init_commands = docker_init_commands
+        self.docker_config = docker_config
 
         self._create_stage_with_config()
         sam_package_dir = self._package_app()
@@ -78,7 +72,7 @@ class Chalice(cdk.Construct):
         # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
         env = {'AWS_DEFAULT_REGION': 'us-east-1'}
 
-        if self.use_container:
+        if self.docker_config is not None:
             self._package_app_container(env, sam_package_dir)
         else:
             self._package_app_subprocess(env, sam_package_dir)
@@ -86,11 +80,11 @@ class Chalice(cdk.Construct):
         return sam_package_dir
 
     def _package_app_container(self, env, sam_package_dir):
-        if not self.docker_image:
+        if not self.docker_config.docker_image:
             python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
             docker_image = f'lambci/lambda:build-python{python_version}'
         else:
-            docker_image = self.docker_image
+            docker_image = self.docker_config.docker_image
 
         docker_volumes = {
             self.source_dir: {'bind': '/app', 'mode': 'rw'},
@@ -98,10 +92,13 @@ class Chalice(cdk.Construct):
         }
 
         docker_command = (
-            f'bash -c "{"".join(command + "; " for command in self.docker_init_commands)}'
+            f'bash -c "{"".join(command + "; " for command in self.docker_config.docker_init_commands)}'
             'pip install --no-cache-dir -r requirements.txt; '
             f'chalice package --stage {self.stage_name} /chalice.out"'
         )
+
+        # populate extra environment variables for docker container
+        env.update(self.docker_config.environment_variables)
 
         client = docker.from_env()
         print(f'Packaging Chalice app for {self.stage_name}')
