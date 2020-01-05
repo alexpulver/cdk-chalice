@@ -5,7 +5,6 @@ import subprocess
 import sys
 import uuid
 import docker
-from typing import List
 from dataclasses import dataclass
 from typing import Dict
 from aws_cdk import (
@@ -27,11 +26,7 @@ class DockerConfig:
     # :param env: environment variables to pass for docker container that build Chalice
     env: dict
 
-    # :param init_commands: provide list of commands to execute before 'chalice package'
-    #             for example: ['pip install awscli --upgrade', 'pip install chalice']
-    init_commands: List[str]
-
-    def __init__(self, image: str, env: dict = None, init_commands: List[str] = None) -> None:
+    def __init__(self, image: str, env: dict = None) -> None:
         if not image:
             # define default docker image to build chalice
             python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
@@ -42,8 +37,6 @@ class DockerConfig:
         # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
         self.env = env or {}
         self.env.setdefault('AWS_DEFAULT_REGION', 'us-east-1')
-
-        self.init_commands = init_commands
 
 
 class ChaliceError(Exception):
@@ -116,8 +109,7 @@ class Chalice(cdk.Construct):
         }
 
         docker_command = (
-            f'bash -c "{"".join(command + "; " for command in self.docker_config.init_commands)}'
-            'pip install --no-cache-dir -r requirements.txt; '
+            'bash -c "pip install --no-cache-dir -r requirements.txt; '
             f'chalice package --stage {self.stage_name} /chalice.out"'
         )
 
