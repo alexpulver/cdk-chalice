@@ -118,10 +118,12 @@ class Chalice(cdk.Construct):
 
         with open(sam_template_path) as sam_template_file:
             sam_template = json.load(sam_template_file)
-            properties = sam_template['Resources']['APIHandler']['Properties']
-            properties['CodeUri'] = {
-                'Bucket': sam_deployment_asset.s3_bucket_name,
-                'Key': sam_deployment_asset.s3_object_key
-            }
+            functions = [v for k, v in sam_template['Resources'].items() if v['Type'] == 'AWS::Serverless::Function']
+            for function in functions:
+                properties = function['Properties']
+                properties['CodeUri'] = {
+                    'Bucket': sam_deployment_asset.s3_bucket_name,
+                    'Key': sam_deployment_asset.s3_object_key
+                }
 
         return sam_template
