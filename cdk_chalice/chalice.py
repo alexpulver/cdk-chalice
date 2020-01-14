@@ -15,19 +15,25 @@ from aws_cdk import (
 
 @dataclass
 class DockerConfig:
-    """ Class for keeping all docker build configuration in one place,
-        use it in case your functions depend on packages that have
-        natively compiled dependencies, use this class to build the Chalice app
-        inside an AWS Lambda-like Docker container"""
+    """ Docker configuration for packaging Chalice app in a container environment.
 
-    # :param image: provide your docker image name, in case of empty will use default docker image
+        The default image closely mimics AWS Lambda execution environment, but you can also
+        specify your own. If a custom container image is used, it is the owner responsibility to
+        make sure it mimics Lambda execution environment.
+    """
+
     image: str
-
-    # :param env: environment variables to pass for docker container that build Chalice
     env: dict
 
-    def __init__(self, image: str, env: dict = None) -> None:
-        if not image:
+    def __init__(self, image: str = None, env: dict = None) -> None:
+        """
+        :param str image: Docker image name.
+        Defaults to image that closely mimics AWS Lambda execution environment.
+        :param Dict[str,str] env: Environment variables to set inside the container.
+        AWS_DEFAULT_REGION is added and set to 'us-east-1' unless explicitly specified.
+        """
+
+        if image is None:
             # define default docker image to build chalice
             python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
             self.image = f'lambci/lambda:build-python{python_version}'
@@ -35,7 +41,7 @@ class DockerConfig:
             self.image = image
 
         # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
-        self.env = env or {}
+        self.env = env if env is not None else {}
         self.env.setdefault('AWS_DEFAULT_REGION', 'us-east-1')
 
 
@@ -121,8 +127,10 @@ class Chalice(cdk.Construct):
                 remove=True, volumes=docker_volumes, working_dir='/app')
         except docker.errors.NotFound:
             message = (
-                f'Unsupported Python version in docker image: {self.docker_config.image}. See AWS Lambda '
-                'Runtimes documentation for supported versions: '
+                f'Could not find the specified Docker image: {self.docker_config.image}. '
+                'When using the default lambci/lambda images, make sure your Python '
+                'version is supported. See AWS Lambda Runtimes documentation for '
+                'supported versions: '
                 'https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html'
             )
             raise ChaliceError(message)
