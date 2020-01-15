@@ -4,13 +4,45 @@ import shutil
 import subprocess
 import sys
 import uuid
-from typing import Dict, Any
-
 import docker
+from dataclasses import dataclass
+from typing import Dict
 from aws_cdk import (
     aws_s3_assets as assets,
     core as cdk
 )
+
+
+@dataclass
+class DockerConfig:
+    """ Docker configuration for packaging Chalice app in a container environment.
+
+        The default image closely mimics AWS Lambda execution environment, but you can also
+        specify your own. If a custom container image is used, it is the owner responsibility to
+        make sure it mimics Lambda execution environment.
+    """
+
+    image: str
+    env: dict
+
+    def __init__(self, image: str = None, env: dict = None) -> None:
+        """
+        :param str image: Docker image name.
+        Defaults to image that closely mimics AWS Lambda execution environment.
+        :param Dict[str,str] env: Environment variables to set inside the container.
+        AWS_DEFAULT_REGION is added and set to 'us-east-1' unless explicitly specified.
+        """
+
+        if image is None:
+            # define default docker image to build chalice
+            python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
+            self.image = f'lambci/lambda:build-python{python_version}'
+        else:
+            self.image = image
+
+        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
+        self.env = env if env is not None else {}
+        self.env.setdefault('AWS_DEFAULT_REGION', 'us-east-1')
 
 
 class ChaliceError(Exception):
@@ -31,15 +63,16 @@ class Chalice(cdk.Construct):
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict, use_container: bool = False, **kwargs) -> None:
+                 stage_config: Dict, docker_config: DockerConfig = None, **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
         :param Dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
-        :param bool use_container: If your functions depend on packages that have
-            natively compiled dependencies, use this flag to build the Chalice app
-            inside an AWS Lambda-like Docker container
+        :param DockerConfig docker_config: If your functions depend on packages that have
+            natively compiled dependencies, build the Chalice app inside an AWS Lambda-like Docker container
+            use can define in which docker image to run, pass extra environment variables to your container
+            in case of None: it will build Chalice on your OS.
         :raises ChaliceError: Raised when an unsupported Python version is used
         """
         super().__init__(scope, id, **kwargs)
@@ -47,7 +80,7 @@ class Chalice(cdk.Construct):
         self.source_dir = source_dir
         self.stage_name = scope.to_string()
         self.stage_config = stage_config
-        self.use_container = use_container
+        self.docker_config = docker_config
 
         self._create_stage_with_config()
         sam_package_dir = self._package_app()
@@ -67,23 +100,20 @@ class Chalice(cdk.Construct):
     def _package_app(self) -> str:
         chalice_out_dir = os.path.join(os.getcwd(), 'chalice.out')
         sam_package_dir = os.path.join(chalice_out_dir, uuid.uuid4().hex)
-        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
-        env = {'AWS_DEFAULT_REGION': 'us-east-1'}
 
-        if self.use_container:
-            self._package_app_container(env, sam_package_dir)
+        if self.docker_config is not None:
+            self._package_app_container(sam_package_dir)
         else:
-            self._package_app_subprocess(env, sam_package_dir)
+            self._package_app_subprocess(sam_package_dir)
 
         return sam_package_dir
 
-    def _package_app_container(self, env, sam_package_dir):
-        python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
-        docker_image = f'lambci/lambda:build-python{python_version}'
+    def _package_app_container(self, sam_package_dir):
         docker_volumes = {
             self.source_dir: {'bind': '/app', 'mode': 'rw'},
             sam_package_dir: {'bind': '/chalice.out', 'mode': 'rw'}
         }
+
         docker_command = (
             'bash -c "pip install --no-cache-dir -r requirements.txt; '
             f'chalice package --stage {self.stage_name} /chalice.out"'
@@ -93,19 +123,23 @@ class Chalice(cdk.Construct):
         print(f'Packaging Chalice app for {self.stage_name}')
         try:
             client.containers.run(
-                docker_image, command=docker_command, environment=env,
+                self.docker_config.image, command=docker_command, environment=self.docker_config.env,
                 remove=True, volumes=docker_volumes, working_dir='/app')
         except docker.errors.NotFound:
             message = (
-                f'Unsupported Python version: {python_version}. See AWS Lambda '
-                'Runtimes documentation for supported versions: '
+                f'Could not find the specified Docker image: {self.docker_config.image}. '
+                'When using the default lambci/lambda images, make sure your Python '
+                'version is supported. See AWS Lambda Runtimes documentation for '
+                'supported versions: '
                 'https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html'
             )
             raise ChaliceError(message)
 
-    def _package_app_subprocess(self, env, sam_package_dir):
+    def _package_app_subprocess(self, sam_package_dir):
         chalice_exe = shutil.which('chalice')
         command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
+        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
+        env = {'AWS_DEFAULT_REGION': 'us-east-1'}
 
         print(f'Packaging Chalice app for {self.stage_name}')
         subprocess.run(command, cwd=self.source_dir, env=env)
