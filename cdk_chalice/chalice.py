@@ -4,45 +4,42 @@ import shutil
 import subprocess
 import sys
 import uuid
-import docker
-from dataclasses import dataclass
 from typing import Dict
+
+import docker
 from aws_cdk import (
     aws_s3_assets as assets,
     core as cdk
 )
 
 
-@dataclass
+_AWS_DEFAULT_REGION = 'us-east-1'
+
+
 class DockerConfig:
-    """ Docker configuration for packaging Chalice app in a container environment.
+    """Docker configuration for packaging Chalice app in a container environment.
 
-        The default image closely mimics AWS Lambda execution environment, but you can also
-        specify your own. If a custom container image is used, it is the owner responsibility to
-        make sure it mimics Lambda execution environment.
+    The default image closely mimics AWS Lambda execution environment, but you can
+    also specify your own. If a custom container image is used, it is the owner
+    responsibility to make sure it mimics Lambda execution environment.
     """
-
-    image: str
-    env: dict
 
     def __init__(self, image: str = None, env: dict = None) -> None:
         """
         :param str image: Docker image name.
-        Defaults to image that closely mimics AWS Lambda execution environment.
+            Defaults to image that closely mimics AWS Lambda execution environment.
         :param Dict[str,str] env: Environment variables to set inside the container.
-        AWS_DEFAULT_REGION is added and set to 'us-east-1' unless explicitly specified.
+            AWS_DEFAULT_REGION is set to 'us-east-1' unless explicitly specified.
         """
-
         if image is None:
-            # define default docker image to build chalice
             python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
             self.image = f'lambci/lambda:build-python{python_version}'
         else:
             self.image = image
 
-        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
         self.env = env if env is not None else {}
-        self.env.setdefault('AWS_DEFAULT_REGION', 'us-east-1')
+        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
+        self.env.setdefault('AWS_DEFAULT_REGION', _AWS_DEFAULT_REGION)
 
 
 class ChaliceError(Exception):
@@ -63,7 +60,8 @@ class Chalice(cdk.Construct):
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict, docker_config: DockerConfig = None, **kwargs) -> None:
+                 stage_config: Dict, docker_config: DockerConfig = None,
+                 **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
         :param Dict stage_config: Chalice stage configuration.
@@ -73,7 +71,7 @@ class Chalice(cdk.Construct):
             natively compiled dependencies, build the Chalice app inside an AWS Lambda-like Docker container
             use can define in which docker image to run, pass extra environment variables to your container
             in case of None: it will build Chalice on your OS.
-        :raises ChaliceError: Raised when an unsupported Python version is used
+        :raises ChaliceError: Error packaging the application.
         """
         super().__init__(scope, id, **kwargs)
 
@@ -113,7 +111,6 @@ class Chalice(cdk.Construct):
             self.source_dir: {'bind': '/app', 'mode': 'rw'},
             sam_package_dir: {'bind': '/chalice.out', 'mode': 'rw'}
         }
-
         docker_command = (
             'bash -c "pip install --no-cache-dir -r requirements.txt; '
             f'chalice package --stage {self.stage_name} /chalice.out"'
@@ -123,8 +120,9 @@ class Chalice(cdk.Construct):
         print(f'Packaging Chalice app for {self.stage_name}')
         try:
             client.containers.run(
-                self.docker_config.image, command=docker_command, environment=self.docker_config.env,
-                remove=True, volumes=docker_volumes, working_dir='/app')
+                self.docker_config.image, command=docker_command,
+                environment=self.docker_config.env, remove=True,
+                volumes=docker_volumes, working_dir='/app')
         except docker.errors.NotFound:
             message = (
                 f'Could not find the specified Docker image: {self.docker_config.image}. '
@@ -139,7 +137,7 @@ class Chalice(cdk.Construct):
         chalice_exe = shutil.which('chalice')
         command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
         # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
-        env = {'AWS_DEFAULT_REGION': 'us-east-1'}
+        env = {'AWS_DEFAULT_REGION': _AWS_DEFAULT_REGION}
 
         print(f'Packaging Chalice app for {self.stage_name}')
         subprocess.run(command, cwd=self.source_dir, env=env)
