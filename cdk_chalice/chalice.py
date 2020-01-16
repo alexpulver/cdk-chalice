@@ -67,10 +67,9 @@ class Chalice(cdk.Construct):
         :param Dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
-        :param DockerConfig docker_config: If your functions depend on packages that have
-            natively compiled dependencies, build the Chalice app inside an AWS Lambda-like Docker container
-            use can define in which docker image to run, pass extra environment variables to your container
-            in case of None: it will build Chalice on your OS.
+        :param DockerConfig docker_config: If your functions depend on packages
+            that have natively compiled dependencies, build your functions inside
+            an AWS Lambda-like Docker container (or your own container).
         :raises ChaliceError: Error packaging the application.
         """
         super().__init__(scope, id, **kwargs)
