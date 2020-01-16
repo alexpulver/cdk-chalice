@@ -22,11 +22,11 @@ this part of the documentation is for you.
 Developer Interface
 ~~~~~~~~~~~~~~~~~~~
 
-.. autoclass:: cdk_chalice.chalice.DockerConfig
+.. autoclass:: cdk_chalice.chalice.Chalice
     :members:
 
     .. automethod:: __init__
-.. autoclass:: cdk_chalice.chalice.Chalice
+.. autoclass:: cdk_chalice.chalice.DockerConfig
     :members:
 
     .. automethod:: __init__
