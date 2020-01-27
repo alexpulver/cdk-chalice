@@ -24,10 +24,6 @@ class Chalice(cdk.Construct):
 
     Packages the application into AWS SAM format and imports the resulting template
     into the construct tree under the provided scope.
-
-    At this time, only API handler Lambda function is supported for deployment.
-    Further work is required to automatically generate CDK assets for additional
-    Lambda functions (e.g. triggered on SQS message).
     """
 
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
@@ -105,7 +101,10 @@ class Chalice(cdk.Construct):
 
     def _package_app_subprocess(self, env, sam_package_dir):
         chalice_exe = shutil.which('chalice')
-        command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
+        command = [
+            chalice_exe, 'package', '--stage',
+            self.stage_name, sam_package_dir
+        ]
 
         print(f'Packaging Chalice app for {self.stage_name}')
         subprocess.run(command, cwd=self.source_dir, env=env)
@@ -118,10 +117,12 @@ class Chalice(cdk.Construct):
 
         with open(sam_template_path) as sam_template_file:
             sam_template = json.load(sam_template_file)
-            functions = [v for k, v in sam_template['Resources'].items() if v['Type'] == 'AWS::Serverless::Function']
+            functions = filter(
+                lambda resource: resource['Type'] == 'AWS::Serverless::Function',
+                sam_template['Resources'].values()
+            )
             for function in functions:
-                properties = function['Properties']
-                properties['CodeUri'] = {
+                function['Properties']['CodeUri'] = {
                     'Bucket': sam_deployment_asset.s3_bucket_name,
                     'Key': sam_deployment_asset.s3_object_key
                 }
