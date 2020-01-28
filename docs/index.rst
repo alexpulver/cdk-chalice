@@ -26,6 +26,10 @@ Developer Interface
     :members:
 
     .. automethod:: __init__
+.. autoclass:: cdk_chalice.chalice.DockerConfig
+    :members:
+
+    .. automethod:: __init__
 .. automodule:: cdk_chalice.chalice
 
 Usage Example

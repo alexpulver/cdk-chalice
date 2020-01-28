@@ -1,1 +1,1 @@
-from .chalice import Chalice
+from .chalice import Chalice, DockerConfig
