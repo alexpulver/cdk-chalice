@@ -23,7 +23,7 @@ copyright = '2019, Alex Pulver'
 author = 'Alex Pulver'
 
 # The full version, including alpha/beta/rc tags
-release = '0.4.0'
+release = '0.5.0'
 
 
 # -- General configuration ---------------------------------------------------
