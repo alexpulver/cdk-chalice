@@ -1,24 +1,27 @@
 #!/usr/bin/env python
 
+import os
 from setuptools import setup
 
 
-long_description = open('README.md', 'r', encoding='utf-8').read()
-
+about = {}
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'about.py'), 'r', encoding='utf-8') as f:
+    exec(f.read(), about)
 
 setup(
-    name='cdk-chalice',
+    name=about['__title__'],
 
-    version='0.5.0',
+    version=about['__version__'],
 
-    description='AWS CDK construct for AWS Chalice',
+    description=about['__description__'],
 
-    url='https://github.com/alexpulver/cdk-chalice',
+    url=about['__url__'],
 
-    author='Alex Pulver',
-    author_email='alex.pulver@gmail.com',
+    author=about['__author__'],
+    author_email=about['__author_email__'],
 
-    license='MIT License',
+    license=about['__license__'],
 
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -39,7 +42,7 @@ setup(
         'Typing :: Typed',
     ],
 
-    packages=['cdk_chalice'],
+    py_modules=['cdk_chalice'],
 
     install_requires=[
         'aws_cdk.aws_iam>=1.18.0',

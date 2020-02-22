@@ -18,12 +18,17 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'cdk-chalice'
-copyright = '2019, Alex Pulver'
-author = 'Alex Pulver'
+about = {}
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, os.path.pardir, 'about.py'), 'r', encoding='utf-8') as f:
+    exec(f.read(), about)
+
+project = about['__title__']
+copyright = about['__copyright__']
+author = about['__author__']
 
 # The full version, including alpha/beta/rc tags
-release = '0.5.0'
+release = about['__version__']
 
 
 # -- General configuration ---------------------------------------------------
