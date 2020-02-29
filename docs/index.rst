@@ -23,13 +23,15 @@ Developer Interface
 ~~~~~~~~~~~~~~~~~~~
 
 .. autoclass:: cdk_chalice.Chalice
-    :members:
+   :members:
 
-    .. automethod:: __init__
+   .. automethod:: __init__
+
 .. autoclass:: cdk_chalice.DockerConfig
-    :members:
+   :members:
 
-    .. automethod:: __init__
+   .. automethod:: __init__
+
 .. automodule:: cdk_chalice
 
 Usage Example

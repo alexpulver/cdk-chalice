@@ -31,14 +31,15 @@ class DockerConfig:
         :param Dict[str,str] env: Environment variables to set inside the container.
             AWS_DEFAULT_REGION is set to 'us-east-1' unless explicitly specified.
         """
-        if image is None:
-            python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
-            self.image = f'lambci/lambda:build-python{python_version}'
-        else:
+        python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
+
+        #: Docker image name.
+        self.image = f'lambci/lambda:build-python{python_version}'
+        if image is not None:
             self.image = image
 
+        #: Environment variables to set during container execution.
         self.env = env if env is not None else {}
-        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
         self.env.setdefault('AWS_DEFAULT_REGION', _AWS_DEFAULT_REGION)
 
 
@@ -70,16 +71,29 @@ class Chalice(cdk.Construct):
         """
         super().__init__(scope, id, **kwargs)
 
+        #: Path to Chalice application source code
         self.source_dir = source_dir
+
+        #: Chalice stage name.
+        #: It is automatically assigned the encompassing CDK stack name.
         self.stage_name = scope.to_string()
+
+        #: Chalice stage configuration.
+        #: The object has the same structure as Chalice JSON stage configuration.
         self.stage_config = stage_config
+
+        #: :class:`DockerConfig` object.
         self.docker_config = docker_config
 
         self._create_stage_with_config()
-        sam_package_dir = self._package_app()
-        sam_template = self._update_sam_template(sam_package_dir)
 
-        cdk.CfnInclude(self, 'ChaliceApp', template=sam_template)
+        #: Path to directory with output of `chalice package` command.
+        self.sam_package_dir = self._package_app()
+
+        #: AWS SAM template updated with AWS CDK values where applicable.
+        self.sam_template = self._update_sam_template()
+
+        cdk.CfnInclude(self, 'ChaliceApp', template=self.sam_template)
 
     def _create_stage_with_config(self):
         config_path = os.path.join(self.source_dir, '.chalice/config.json')
@@ -137,11 +151,11 @@ class Chalice(cdk.Construct):
         print(f'Packaging Chalice app for {self.stage_name}')
         subprocess.run(command, cwd=self.source_dir, env=env)
 
-    def _update_sam_template(self, sam_package_dir):
-        deployment_zip_path = os.path.join(sam_package_dir, 'deployment.zip')
+    def _update_sam_template(self):
+        deployment_zip_path = os.path.join(self.sam_package_dir, 'deployment.zip')
         sam_deployment_asset = assets.Asset(
             self, 'ChaliceAppCode', path=deployment_zip_path)
-        sam_template_path = os.path.join(sam_package_dir, 'sam.json')
+        sam_template_path = os.path.join(self.sam_package_dir, 'sam.json')
 
         with open(sam_template_path) as sam_template_file:
             sam_template = json.load(sam_template_file)
