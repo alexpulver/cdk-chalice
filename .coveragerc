@@ -1,0 +1,3 @@
+[run]
+include = cdk_chalice.py
+command_line = -m unittest tests/test_cdk_chalice.py
