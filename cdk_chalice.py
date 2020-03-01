@@ -28,7 +28,8 @@ class PackageConfig:
     it is the owner responsibility to make sure it mimics Lambda execution environment.
     """
 
-    def __init__(self, use_container: bool = False, image: str = None, env: dict = None) -> None:
+    def __init__(self, use_container: bool = False, image: str = None,
+                 env: Dict[str,str] = None) -> None:
         """
         :param bool use_container: Package the Chalice app in Docker container.
         :param str image: Docker image name.
@@ -43,19 +44,18 @@ class PackageConfig:
         #: packages the app in subprocess.
         self.use_container = use_container
 
-        #: Docker image name. Used when :attr:`use_container` is set to ``True``
+        #: Docker image name. Used when :attr:`use_container` is set to ``True``.
         self.image = f'lambci/lambda:build-python{python_version}'
         if image is not None:
             self.image = image
 
-        #: Environment variables to set during container execution.
-        #: Used when :attr:`use_container` is set to ``True``
+        #: Environment variables used during packaging.
         self.env = env if env is not None else {}
         self.env.setdefault('AWS_DEFAULT_REGION', _AWS_DEFAULT_REGION)
 
 
 class ChaliceError(Exception):
-    """Chalice exception"""
+    """Chalice exception."""
     pass
 
 
@@ -72,17 +72,17 @@ class Chalice(cdk.Construct):
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str, stage_config: dict,
                  package_config: PackageConfig = None, **kwargs) -> None:
         """
-        :param str source_dir: Path to Chalice application source code
+        :param str source_dir: Path to Chalice application source code.
         :param dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
         :param `PackageConfig` package_config: Configuration for packaging the
-            Chalice application
-        :raises `ChaliceError`: Error packaging the Chalice application
+            Chalice application.
+        :raises `ChaliceError`: Error packaging the Chalice application.
         """
         super().__init__(scope, id, **kwargs)
 
-        #: Path to Chalice application source code
+        #: Path to Chalice application source code.
         self.source_dir = os.path.abspath(source_dir)
 
         #: Chalice stage name.
