@@ -16,58 +16,69 @@ from aws_cdk import (
 _AWS_DEFAULT_REGION = 'us-east-1'
 
 
-class DockerConfig:
-    """Docker configuration for packaging Chalice app in a container environment.
+class PackageConfig:
+    """Configuration for packaging Chalice app.
 
-    The default image closely mimics AWS Lambda execution environment, but you can
-    also specify your own. If a custom container image is used, it is the owner
-    responsibility to make sure it mimics Lambda execution environment.
+    If your functions depend on packages that have natively compiled dependencies,
+    build your functions inside a Docker container. In order to instruct
+    :class:`Chalice` class to do so, set :attr:`use_container` to ``True``.
+
+    When packaging the Chalice app in Docker container, the default image closely
+    mimics AWS Lambda execution environment. If a custom container image is used,
+    it is the owner responsibility to make sure it mimics Lambda execution environment.
     """
 
-    def __init__(self, image: str = None, env: dict = None) -> None:
+    def __init__(self, use_container: bool = False, image: str = None, env: dict = None) -> None:
         """
+        :param bool use_container: Package the Chalice app in Docker container.
         :param str image: Docker image name.
             Defaults to image that closely mimics AWS Lambda execution environment.
-        :param Dict[str,str] env: Environment variables to set inside the container.
-            AWS_DEFAULT_REGION is set to 'us-east-1' unless explicitly specified.
+        :param Dict[str,str] env: Environment variables to set for packaging.
+            ``AWS_DEFAULT_REGION`` is set to ``us-east-1`` unless explicitly
+            specified otherwise.
         """
         python_version = f'{sys.version_info.major}.{sys.version_info.minor}'
 
-        #: Docker image name.
+        #: If ``True``, package the Chalice app in Docker container. By default
+        #: packages the app in subprocess.
+        self.use_container = use_container
+
+        #: Docker image name. Used when :attr:`use_container` is set to ``True``
         self.image = f'lambci/lambda:build-python{python_version}'
         if image is not None:
             self.image = image
 
         #: Environment variables to set during container execution.
+        #: Used when :attr:`use_container` is set to ``True``
         self.env = env if env is not None else {}
         self.env.setdefault('AWS_DEFAULT_REGION', _AWS_DEFAULT_REGION)
 
 
 class ChaliceError(Exception):
+    """Chalice exception"""
     pass
 
 
 class Chalice(cdk.Construct):
-    """
-    Adds the provided stage configuration to SOURCE_DIR/.chalice/config.json.
-    Stage name will be the string representation of current CDK scope.
+    """Chalice construct.
+
+    Adds the provided stage configuration to :attr:`source_dir`/.chalice/config.json.
+    Stage name will be the string representation of current CDK ``scope``.
 
     Packages the application into AWS SAM format and imports the resulting template
-    into the construct tree under the provided scope.
+    into the construct tree under the provided ``scope``.
     """
 
-    def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str,
-                 stage_config: Dict, docker_config: DockerConfig = None,
-                 **kwargs) -> None:
+    def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str, stage_config: dict,
+                 package_config: PackageConfig = None, **kwargs) -> None:
         """
         :param str source_dir: Path to Chalice application source code
-        :param Dict stage_config: Chalice stage configuration.
+        :param dict stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
-        :param DockerConfig docker_config: If your functions depend on packages
-            that have natively compiled dependencies, build your functions inside
-            an AWS Lambda-like Docker container (or your own container).
-        :raises ChaliceError: Error packaging the application.
+        :param `PackageConfig` package_config: Configuration for packaging the
+            Chalice application
+        :raises `ChaliceError`: Error packaging the Chalice application
         """
         super().__init__(scope, id, **kwargs)
 
@@ -75,15 +86,16 @@ class Chalice(cdk.Construct):
         self.source_dir = os.path.abspath(source_dir)
 
         #: Chalice stage name.
-        #: It is automatically assigned the encompassing CDK stack name.
+        #: It is automatically assigned the encompassing CDK ``scope``'s name.
         self.stage_name = scope.to_string()
 
         #: Chalice stage configuration.
         #: The object has the same structure as Chalice JSON stage configuration.
         self.stage_config = stage_config
 
-        #: :class:`DockerConfig` object.
-        self.docker_config = docker_config
+        #: :class:`PackageConfig` object.
+        #: If not provided, :class:`PackageConfig` instance with default arguments is used.
+        self.package_config = PackageConfig() if package_config is None else package_config
 
         self._create_stage_with_config()
 
@@ -110,7 +122,8 @@ class Chalice(cdk.Construct):
         chalice_out_dir = os.path.join(os.getcwd(), 'chalice.out')
         sam_package_dir = os.path.join(chalice_out_dir, uuid.uuid4().hex)
 
-        if self.docker_config is not None:
+        print(f'Packaging Chalice app for {self.stage_name}')
+        if self.package_config.use_container:
             self._package_app_container(sam_package_dir)
         else:
             self._package_app_subprocess(sam_package_dir)
@@ -128,15 +141,14 @@ class Chalice(cdk.Construct):
         )
 
         client = docker.from_env()
-        print(f'Packaging Chalice app for {self.stage_name}')
         try:
             client.containers.run(
-                self.docker_config.image, command=docker_command,
-                environment=self.docker_config.env, remove=True,
+                self.package_config.image, command=docker_command,
+                environment=self.package_config.env, remove=True,
                 volumes=docker_volumes, working_dir='/app')
         except docker.errors.NotFound:
             message = (
-                f'Could not find the specified Docker image: {self.docker_config.image}. '
+                f'Could not find the specified Docker image: {self.package_config.image}. '
                 'When using the default lambci/lambda images, make sure your Python '
                 'version is supported. See AWS Lambda Runtimes documentation for '
                 'supported versions: '
@@ -149,11 +161,8 @@ class Chalice(cdk.Construct):
     def _package_app_subprocess(self, sam_package_dir):
         chalice_exe = shutil.which('chalice')
         command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
-        # Chalice requires AWS_DEFAULT_REGION to be set for 'package' sub-command.
-        env = {'AWS_DEFAULT_REGION': _AWS_DEFAULT_REGION}
 
-        print(f'Packaging Chalice app for {self.stage_name}')
-        subprocess.run(command, cwd=self.source_dir, env=env)
+        subprocess.run(command, cwd=self.source_dir, env=self.package_config.env)
 
     def _update_sam_template(self):
         deployment_zip_path = os.path.join(self.sam_package_dir, 'deployment.zip')

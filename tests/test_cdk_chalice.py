@@ -5,7 +5,7 @@ import unittest
 
 from aws_cdk import core as cdk
 
-from cdk_chalice import Chalice, DockerConfig
+from cdk_chalice import Chalice, PackageConfig
 
 
 class ChaliceTestCase(unittest.TestCase):
@@ -44,11 +44,11 @@ class ChaliceTestCase(unittest.TestCase):
     def test_package_using_docker(self) -> None:
         app = cdk.App(outdir=ChaliceTestCase.CDK_OUT_DIR)
         stack = cdk.Stack(app, 'Stack')
-        docker_config = DockerConfig()
+        package_config = PackageConfig(use_container=True)
         chalice = Chalice(stack, 'TestPackageUsingSubprocess',
                           source_dir=ChaliceTestCase.CHALICE_APP_DIR,
                           stage_config=ChaliceTestCase.CHALICE_APP_STAGE_CONFIG,
-                          docker_config=docker_config)
+                          package_config=package_config)
         self._synth_and_assert(app, chalice)
 
     def _synth_and_assert(self, app: cdk.App, chalice: Chalice) -> None:

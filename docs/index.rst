@@ -27,7 +27,7 @@ Developer Interface
 
    .. automethod:: __init__
 
-.. autoclass:: cdk_chalice.DockerConfig
+.. autoclass:: cdk_chalice.PackageConfig
    :members:
 
    .. automethod:: __init__
