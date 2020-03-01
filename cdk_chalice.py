@@ -99,6 +99,8 @@ class Chalice(cdk.Construct):
         config_path = os.path.join(self.source_dir, '.chalice/config.json')
         with open(config_path, 'r+') as config_file:
             config = json.load(config_file)
+            if 'stages' not in config:
+                config['stages'] = {}
             config['stages'][self.stage_name] = self.stage_config
             config_file.seek(0)
             config_file.write(json.dumps(config, indent=2))
