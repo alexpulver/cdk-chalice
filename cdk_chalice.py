@@ -143,6 +143,8 @@ class Chalice(cdk.Construct):
                 'https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html'
             )
             raise ChaliceError(message)
+        finally:
+            client.close()
 
     def _package_app_subprocess(self, sam_package_dir):
         chalice_exe = shutil.which('chalice')
