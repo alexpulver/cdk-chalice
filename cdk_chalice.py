@@ -72,7 +72,7 @@ class Chalice(cdk.Construct):
         super().__init__(scope, id, **kwargs)
 
         #: Path to Chalice application source code
-        self.source_dir = source_dir
+        self.source_dir = os.path.abspath(source_dir)
 
         #: Chalice stage name.
         #: It is automatically assigned the encompassing CDK stack name.
