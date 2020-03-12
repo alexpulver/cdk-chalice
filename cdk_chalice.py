@@ -1,7 +1,9 @@
+# pylint: disable=missing-module-docstring
+
 import json
 import os
 import shutil
-import subprocess
+import subprocess  # nosec
 import sys
 import uuid
 from typing import Dict
@@ -16,6 +18,9 @@ from aws_cdk import (
 _AWS_DEFAULT_REGION = 'us-east-1'
 
 
+# pylint: disable=too-few-public-methods
+# Using a class and not a dictionary/namedtuple to provide a default behavior object
+# and ease of configuration for Chalice class consumers.
 class PackageConfig:
     """Configuration for packaging Chalice app.
 
@@ -28,8 +33,10 @@ class PackageConfig:
     it is the owner responsibility to make sure it mimics Lambda execution environment.
     """
 
+    # pylint: disable=bad-whitespace
+    # Dict[str,str] with spaces is not parsed correctly by Sphinx.
     def __init__(self, use_container: bool = False, image: str = None,
-                 env: Dict[str,str] = None) -> None:
+                 env: Dict[str,str] = None) -> None:  # noqa: E231
         """
         :param bool use_container: Package the Chalice app in Docker container.
         :param str image: Docker image name.
@@ -56,7 +63,6 @@ class PackageConfig:
 
 class ChaliceError(Exception):
     """Chalice exception."""
-    pass
 
 
 class Chalice(cdk.Construct):
@@ -69,6 +75,8 @@ class Chalice(cdk.Construct):
     into the construct tree under the provided ``scope``.
     """
 
+    # pylint: disable=redefined-builtin
+    # The 'id' parameter name is CDK convention.
     def __init__(self, scope: cdk.Construct, id: str, *, source_dir: str, stage_config: dict,
                  package_config: PackageConfig = None, **kwargs) -> None:
         """
@@ -162,7 +170,8 @@ class Chalice(cdk.Construct):
         chalice_exe = shutil.which('chalice')
         command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
 
-        subprocess.run(command, cwd=self.source_dir, env=self.package_config.env)
+        subprocess.run(command, check=True, cwd=self.source_dir,
+                       env=self.package_config.env)  # nosec
 
     def _update_sam_template(self):
         deployment_zip_path = os.path.join(self.sam_package_dir, 'deployment.zip')
