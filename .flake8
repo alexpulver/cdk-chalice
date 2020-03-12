@@ -1,0 +1,3 @@
+[flake8]
+filename = cdk_chalice.py
+max-line-length = 99
