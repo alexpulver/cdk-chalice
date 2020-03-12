@@ -22,4 +22,5 @@ dist/
 
 # Coverage.py
 .coverage
+coverage.xml
 htmlcov/
