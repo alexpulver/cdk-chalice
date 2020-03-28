@@ -10,14 +10,11 @@ from cdk_chalice import Chalice, PackageConfig
 
 class ChaliceTestCase(unittest.TestCase):
 
-    CDK_OUT_DIR = os.path.abspath(os.path.join(os.getcwd(), 'cdk.out'))
-    CHALICE_OUT_DIR = os.path.abspath(os.path.join(os.getcwd(), 'chalice.out'))
-    CHALICE_APP_DIR = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), 'chalice_app'))
-    CHALICE_APP_DEPLOYMENTS_DIR = os.path.abspath(
-        os.path.join(CHALICE_APP_DIR, '.chalice', 'deployments'))
-    CHALICE_APP_CONFIG_FILE = os.path.abspath(
-        os.path.join(CHALICE_APP_DIR, '.chalice', 'config.json'))
+    CDK_OUT_DIR = os.path.join(os.getcwd(), 'cdk.out')
+    CHALICE_OUT_DIR = os.path.join(os.getcwd(), 'chalice.out')
+    CHALICE_APP_DIR = os.path.join(os.path.dirname(__file__), 'chalice_app')
+    CHALICE_APP_DEPLOYMENTS_DIR = os.path.join(CHALICE_APP_DIR, '.chalice', 'deployments')
+    CHALICE_APP_CONFIG_FILE = os.path.join(CHALICE_APP_DIR, '.chalice', 'config.json')
     CHALICE_APP_STAGE_CONFIG = {
         'api_gateway_stage': 'v1'
     }
