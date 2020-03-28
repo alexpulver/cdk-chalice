@@ -3,5 +3,6 @@ python:
   - '3.6'
   - '3.7'
   - '3.8'
-install: pip install -r requirements.txt -r requirements-dev.txt
+before_install: pip install pip-tools
+install: pip-sync requirements.txt requirements-dev.txt
 script: coverage run
