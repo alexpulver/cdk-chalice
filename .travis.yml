@@ -3,6 +3,9 @@ python:
   - '3.6'
   - '3.7'
   - '3.8'
+services: docker
+jobs:
+  fast_finish: true
 before_install: pip install pip-tools
 install: pip-sync requirements.txt requirements-dev.txt
 script: coverage run
