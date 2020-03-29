@@ -7,4 +7,4 @@ services: docker
 fast_finish: true
 before_install: pip install pip-tools
 install: pip-sync requirements.txt requirements-dev.txt
-script: python -m unittest discover
+script: python -m unittest discover -s tests
