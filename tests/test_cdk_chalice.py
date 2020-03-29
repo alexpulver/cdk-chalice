@@ -28,7 +28,7 @@ class ChaliceTestCase(unittest.TestCase):
             'api_gateway_stage': 'v1'
         }
 
-        with open(self.chalice_app_config_file, 'w') as config_file:
+        with open(self.chalice_app_config_file, 'w+') as config_file:
             chalice_app_config = {
                 'version': '2.0',
                 'app_name': 'chalice',
