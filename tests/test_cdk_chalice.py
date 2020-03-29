@@ -37,7 +37,7 @@ class ChaliceTestCase(unittest.TestCase):
 
     def tearDown(self) -> None:
         os.chdir('/tmp')
-        shutil.rmtree(self.temp_dir)
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_package_using_subprocess(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
