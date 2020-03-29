@@ -1,4 +1,5 @@
 bandit
+chalice
 coverage
 flake8
 pip-tools

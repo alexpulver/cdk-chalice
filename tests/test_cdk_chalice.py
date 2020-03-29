@@ -36,6 +36,7 @@ class ChaliceTestCase(unittest.TestCase):
             json.dump(chalice_app_config, config_file, indent=2)
 
     def tearDown(self) -> None:
+        os.chdir('/tmp')
         shutil.rmtree(self.temp_dir)
 
     def test_package_using_subprocess(self) -> None:
