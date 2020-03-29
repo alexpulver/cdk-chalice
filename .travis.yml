@@ -5,7 +5,7 @@ python:
   - '3.8'
 services: docker
 env:
-  - LC_ALL=C.UTF-8 LANG=C.UTF-8
+  - LC_ALL=C.UTF-8 LANG=C.UTF-8 PYTHONIOENCODING=UTF-8
 fast_finish: true
 before_install: pip install pip-tools
 install: pip-sync requirements.txt requirements-dev.txt
