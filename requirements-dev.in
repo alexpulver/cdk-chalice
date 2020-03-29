@@ -1,0 +1,10 @@
+bandit
+chalice
+coverage
+flake8
+pip-tools
+pylint
+setuptools
+sphinx
+twine
+wheel

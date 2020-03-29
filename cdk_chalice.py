@@ -170,8 +170,8 @@ class Chalice(cdk.Construct):
         chalice_exe = shutil.which('chalice')
         command = [chalice_exe, 'package', '--stage', self.stage_name, sam_package_dir]
 
-        subprocess.run(command, check=True, cwd=self.source_dir,
-                       env=self.package_config.env)  # nosec
+        subprocess.run(command, check=True, cwd=self.source_dir,  # nosec
+                       env=self.package_config.env)
 
     def _update_sam_template(self):
         deployment_zip_path = os.path.join(self.sam_package_dir, 'deployment.zip')

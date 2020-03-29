@@ -1,0 +1,16 @@
+language: python
+python:
+  - '3.7'
+  - '3.8'
+cache: pip
+services: docker
+before_install: pip install pip-tools
+install: pip-sync requirements.txt requirements-dev.txt
+script:
+  - flake8
+  - pylint cdk_chalice.py
+  - bandit --ini .bandit
+  - coverage run
+after_success:
+  - coverage xml
+  - bash <(curl -s https://codecov.io/bash)
