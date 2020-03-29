@@ -45,8 +45,8 @@ class ChaliceTestCase(unittest.TestCase):
         chalice = Chalice(stack, 'WebApi',
                           source_dir=self.chalice_app_dir,
                           stage_config=self.chalice_app_stage_config)
-        cloudformation_template = self._synth_and_get_template(app, chalice)
-        self._check_basic_asserts(chalice, cloudformation_template)
+        template = self._synth_and_get_template(app, chalice)
+        self._check_basic_asserts(chalice, template)
 
     def test_package_using_docker(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
@@ -56,8 +56,8 @@ class ChaliceTestCase(unittest.TestCase):
                           source_dir=self.chalice_app_dir,
                           stage_config=self.chalice_app_stage_config,
                           package_config=package_config)
-        cloudformation_template = self._synth_and_get_template(app, chalice)
-        self._check_basic_asserts(chalice, cloudformation_template)
+        template = self._synth_and_get_template(app, chalice)
+        self._check_basic_asserts(chalice, template)
 
     def test_package_using_docker_image_not_found(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
@@ -68,15 +68,15 @@ class ChaliceTestCase(unittest.TestCase):
                     stage_config=self.chalice_app_stage_config,
                     package_config=package_config)
 
-    def _synth_and_get_template(self, app: cdk.App, chalice: Chalice) -> None:
+    def _synth_and_get_template(self, app: cdk.App, chalice: Chalice) -> dict:
         cloud_assembly = app.synth()
 
-        stack_name = cdk.Stack.of(chalice).stack_name
-        cloudformation_template = cloud_assembly.get_stack_by_name(stack_name).template
+        chalice_stack_name = cdk.Stack.of(chalice).stack_name
+        template = cloud_assembly.get_stack_by_name(chalice_stack_name).template
 
-        return cloudformation_template
+        return template
 
-    def _check_basic_asserts(self, chalice, cloudformation_template):
+    def _check_basic_asserts(self, chalice, cloudformation_template) -> None:
         self.assertTrue(os.path.exists(chalice.sam_package_dir))
         self.assertIsNotNone(chalice.sam_template)
         self.assertNotEqual(
