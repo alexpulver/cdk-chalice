@@ -7,4 +7,4 @@ services: docker
 fast_finish: true
 before_install: pip install pip-tools
 install: pip-sync requirements.txt requirements-dev.txt
-script: env LC_ALL=C.UTF-8 LANG=C.UTF-8 python -m unittest discover -s tests
+script: export LC_ALL=C.UTF-8 && export LANG=C.UTF-8 && python -m unittest discover -s tests
