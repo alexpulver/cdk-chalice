@@ -14,3 +14,11 @@ script:
 after_success:
   - coverage xml
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: pypi
+  username: __token__
+  password: ####
+  skip_existing: true
+  on:
+    tags: true
+  edge: true
