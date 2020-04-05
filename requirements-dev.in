@@ -1,4 +1,5 @@
 bandit
+bump2version
 chalice
 coverage
 flake8
