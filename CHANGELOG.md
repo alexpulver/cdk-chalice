@@ -9,13 +9,21 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
-* Travis CI (CI + CD)
-* Flake8 (style guide enforcement)
-* Bandit (AST-based static analyzer)
-* SonarCloud (quality checks)
 
 ### Changes
 
 ### Fixes
 
 ### Breaks
+
+
+## 0.7.0 - (2020-04-05)
+---
+
+### New
+* Travis CI (CI + CD)
+* Flake8 (style guide enforcement)
+* Bandit (AST-based static analyzer)
+* SonarCloud (quality checks)
+
+
