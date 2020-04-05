@@ -16,7 +16,7 @@ setup(
     author=about['__author__'],
     author_email=about['__author_email__'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: JavaScript',

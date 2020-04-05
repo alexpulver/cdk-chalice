@@ -1,16 +1,21 @@
 language: python
 python:
-  - '3.7'
-  - '3.8'
+- '3.7'
+- '3.8'
 cache: pip
 services: docker
 before_install: pip install pip-tools
 install: pip-sync requirements.txt requirements-dev.txt
-script:
-  - flake8
-  - pylint cdk_chalice.py
-  - bandit --ini .bandit
-  - coverage run
+script: ./scripts/run-tests.sh
 after_success:
-  - coverage xml
-  - bash <(curl -s https://codecov.io/bash)
+- coverage xml
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: TywbvDQWlWZ3tESQFUOBeCkJrWwlYdfn6lPu2ClNtbJQS+AYglN+UWztA3fuzygIzB9ZKqqQrGJY1Vi2/0doQOsKYTbFYCcvIJS53ineENfJmqMDFDLyBffQ9aaCYEcxPabhQRu5XdmpNWLt6nXjiediWa/9oz/Eg+F5Q7irqWGOCM+g1G7P/l331x8RQ4mCCcpHY5p/SXRUilgViN6VpZc02Z80RKeGKAjTU7CL8i1S2+gqgHeqqIL52qudoUKALjzq8hNYbfG51ArsCmy3XTDzdZMzmPo+n25ASQ49d4r82OmLIFLdMXducUxVYFdak0XB58P/vJKOocktZ/374er1ggQtnE7mw9aLSH8U+FHfoKP5uAueTrI7N1Vd5neyteWMSxALyzFK62neCu8FPHH3a1vM5kPRKfmKSN7x5uqHnJoOaSe5nWo/xrEm0AaatjGQS0BeK60d6xHUMUlD5kSEu6hEZLcFOzBd82OWtPPqSFRhuz7MrtAGdI/jQ9m6gpQhS4q/bZoQsEx9WM4vCCcHcoZ+YPla6rUt3WGYovOkWSG2EDIR+hnjFbCj+FSjPyfesNEXGKpaJ1QnnwqvUoND2gXSF2ap6EvWBp3/FYhnBuau5zObOp+14Q8lnfrXIxMaiqMqDFGTQvxOYQepaw00HH61RYl4X5lNCXNrOj0=
+  skip_existing: true
+  on:
+    tags: true
+  edge: true
