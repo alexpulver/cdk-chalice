@@ -1,11 +1,11 @@
 bandit
 bump2version
 chalice
+changelog-cli
 coverage
 flake8
 pip-tools
 pylint
-setuptools
 sphinx
 twine
 wheel

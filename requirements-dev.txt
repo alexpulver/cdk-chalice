@@ -14,8 +14,9 @@ botocore==1.15.31         # via chalice
 bump2version==1.0.0       # via -r requirements-dev.in
 certifi==2019.11.28       # via requests
 chalice==1.13.0           # via -r requirements-dev.in
+changelog-cli==0.7.1      # via -r requirements-dev.in
 chardet==3.0.4            # via requests
-click==7.1.1              # via chalice, pip-tools
+click==7.1.1              # via chalice, changelog-cli, pip-tools
 coverage==5.0.4           # via -r requirements-dev.in
 docutils==0.15.2          # via botocore, readme-renderer, sphinx
 entrypoints==0.3          # via flake8
