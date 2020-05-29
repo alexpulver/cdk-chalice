@@ -39,7 +39,7 @@ setup(
     long_description=readme,
     long_description_content_type='text/markdown',
     name=about['__title__'],
-    py_modules=['cdk_chalice'],
+    py_modules=['about', 'cdk_chalice'],
     python_requires='>=3.6',
     tests_require=['coverage'],
     test_suite='tests',
