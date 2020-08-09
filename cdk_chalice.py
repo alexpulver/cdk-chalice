@@ -63,7 +63,6 @@ class PackageConfig:
 
 class ChaliceError(Exception):
     """Chalice exception."""
-    pass
 
 
 class Chalice(cdk.Construct):
