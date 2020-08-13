@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ### New
 
 ### Changes
+* Move docs to GitHub Pages
 
 ### Fixes
 * Fix PyPI installation and add bdist_wheel
