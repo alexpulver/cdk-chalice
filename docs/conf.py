@@ -81,8 +81,3 @@ html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 html_show_copyright = True
-
-nitpick_ignore = [
-    ('py:class', 'str'), ('py:class', 'dict'), ('py:class', 'bool'),
-    ('py:class', 'Dict'), ('py:exc', 'ChaliceError')
-]
