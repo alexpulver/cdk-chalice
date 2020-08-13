@@ -11,12 +11,20 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ### New
 
 ### Changes
+
+### Fixes
+
+### Breaks
+
+
+## 0.7.2 - (2020-08-13)
+---
+
+### Changes
 * Move docs to GitHub Pages
 
 ### Fixes
 * Fix PyPI installation and add bdist_wheel
-
-### Breaks
 
 
 ## 0.7.1 - (2020-05-29)
