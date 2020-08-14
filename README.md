@@ -7,16 +7,15 @@
 [![Build Status](https://travis-ci.com/alexpulver/cdk-chalice.svg?branch=master)](https://travis-ci.com/alexpulver/cdk-chalice)
 [![codecov](https://codecov.io/gh/alexpulver/cdk-chalice/branch/master/graph/badge.svg)](https://codecov.io/gh/alexpulver/cdk-chalice)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alexpulver_cdk-chalice&metric=alert_status)](https://sonarcloud.io/dashboard?id=alexpulver_cdk-chalice)
-[![Documentation Status](https://readthedocs.org/projects/cdk-chalice/badge/?version=latest)](https://cdk-chalice.readthedocs.io/en/latest/?badge=latest)
 [![Contributors](https://img.shields.io/github/contributors/alexpulver/cdk-chalice.svg)](https://github.com/alexpulver/cdk-chalice/graphs/contributors)
 
 **AWS CDK construct for AWS Chalice**
 
-This library allows to include an [AWS Chalice](https://chalice.readthedocs.io/en/latest/) 
+This library allows to include an [AWS Chalice](https://aws.github.io/chalice/) 
 application into a broader [AWS Cloud Development Kit](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
 (AWS CDK) application.
 
-See API documentation on Read the Docs: https://cdk-chalice.readthedocs.io/en/latest/
+The API documentation and usage example are available on https://cdk-chalice.softwhat.com/
 
 **Installation**
 
