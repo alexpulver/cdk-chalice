@@ -46,5 +46,6 @@ git branch -D branch-name
 git checkout master
 git pull --rebase
 ./scripts/bump-version.sh [ARGS]
+git push
 git push --tags
 ```
