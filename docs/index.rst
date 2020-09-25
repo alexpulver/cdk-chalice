@@ -6,27 +6,22 @@
 Welcome to cdk-chalice's documentation!
 =======================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+If you are looking for information on a specific class or method, this documentation is for you.
 
-The API Documentation
------------------------------
+.. contents:: Table of Contents
+    :local:
+    :depth: 3
 
-If you are looking for information on a specific function, class, or method,
-this part of the documentation is for you.
-
-.. toctree::
-   :maxdepth: 2
-
-Developer Interface
-~~~~~~~~~~~~~~~~~~~
+Chalice
+~~~~~~~
 
 .. autoclass:: cdk_chalice.Chalice
    :members:
 
    .. automethod:: __init__
 
+PackageConfig
+~~~~~~~~~~~~~
 .. autoclass:: cdk_chalice.PackageConfig
    :members:
 
@@ -37,9 +32,22 @@ Developer Interface
 Usage Example
 ~~~~~~~~~~~~~
 
-Example of using Chalice class in a stack that creates a basic web API
+Example of using Chalice class in a stack that creates a basic web API.
 
-::
+Note the customization of Chalice-generated resources using ``self.chalice.sam_template`` attribute. `cdk-chalice` uses
+`aws_cdk.cloudformation_include <https://docs.aws.amazon.com/cdk/api/latest/docs/cloudformation-include-readme.html>`_
+module to expose resources in the SAM template as native CDK objects. For example, ``rest_api`` variable below is an
+instance of ``aws_cdk.aws_sam.CfnApi`` class. This capability allows to reference or customize Chalice application
+resources within the broader CDK application.
+
+The workflow for customization would be as follows:
+
+* Implement the initial Chalice application using stage configuration (``stage_config``)
+* Run ``cdk synth``
+* Open the generated ``sam.json`` file under ``cdk.out`` directory and find the logical name of the relevant resource
+* Retrieve the CDK object for the resource using ``chalice.sam_template.getResource()`` method
+
+Any modifications made to the resource will be reflected in the resulting CDK template. ::
 
     import os
 
@@ -85,6 +93,8 @@ Example of using Chalice class in a stack that creates a basic web API
             self.chalice = Chalice(
                 self, 'WebApi', source_dir=web_api_source_dir,
                 stage_config=chalice_stage_config)
+            rest_api = self.chalice.sam_template.get_resource('RestAPI')
+            rest_api.tracing_enabled = True
 
         def _create_chalice_stage_config(self):
             chalice_stage_config = {
@@ -108,10 +118,3 @@ Example of using Chalice class in a stack that creates a basic web API
 
             return chalice_stage_config
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
