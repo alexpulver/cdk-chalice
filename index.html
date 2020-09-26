@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.7.2 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.8.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -32,27 +33,28 @@
             
   <div class="section" id="welcome-to-cdk-chalice-s-documentation">
 <h1>Welcome to cdk-chalice’s documentation!<a class="headerlink" href="#welcome-to-cdk-chalice-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<p>If you are looking for information on a specific class or method, this documentation is for you.</p>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#chalice" id="id1">Chalice</a></p></li>
+<li><p><a class="reference internal" href="#packageconfig" id="id2">PackageConfig</a></p></li>
+<li><p><a class="reference internal" href="#usage-example" id="id3">Usage Example</a></p></li>
+</ul>
 </div>
-<div class="section" id="the-api-documentation">
-<h2>The API Documentation<a class="headerlink" href="#the-api-documentation" title="Permalink to this headline">¶</a></h2>
-<p>If you are looking for information on a specific function, class, or method,
-this part of the documentation is for you.</p>
-<div class="toctree-wrapper compound">
-</div>
-<div class="section" id="developer-interface">
-<h3>Developer Interface<a class="headerlink" href="#developer-interface" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
+<div class="section" id="chalice">
+<h2><a class="toc-backref" href="#id1">Chalice</a><a class="headerlink" href="#chalice" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
 <dt id="cdk_chalice.Chalice">
-<em class="property">class </em><code class="sig-prename descclassname">cdk_chalice.</code><code class="sig-name descname">Chalice</code><span class="sig-paren">(</span><em class="sig-param">scope: aws_cdk.core.Construct</em>, <em class="sig-param">id: str</em>, <em class="sig-param">*</em>, <em class="sig-param">source_dir: str</em>, <em class="sig-param">stage_config: dict</em>, <em class="sig-param">package_config: cdk_chalice.PackageConfig = None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cdk_chalice.html#Chalice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cdk_chalice.</code><code class="sig-name descname">Chalice</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cdk_chalice.html#Chalice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Chalice construct.</p>
 <p>Adds the provided stage configuration to <a class="reference internal" href="#cdk_chalice.Chalice.source_dir" title="cdk_chalice.Chalice.source_dir"><code class="xref py py-attr docutils literal notranslate"><span class="pre">source_dir</span></code></a>/.chalice/config.json.
 Stage name will be the string representation of current CDK <code class="docutils literal notranslate"><span class="pre">scope</span></code>.</p>
 <p>Packages the application into AWS SAM format and imports the resulting template
 into the construct tree under the provided <code class="docutils literal notranslate"><span class="pre">scope</span></code>.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="cdk_chalice.Chalice.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">scope: aws_cdk.core.Construct</em>, <em class="sig-param">id: str</em>, <em class="sig-param">*</em>, <em class="sig-param">source_dir: str</em>, <em class="sig-param">stage_config: dict</em>, <em class="sig-param">package_config: cdk_chalice.PackageConfig = None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#Chalice.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scope</span><span class="p">:</span> <span class="n">aws_cdk.core.Construct</span></em>, <em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">stage_config</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">package_config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig">cdk_chalice.PackageConfig</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#Chalice.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -70,50 +72,50 @@ Chalice application.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.Chalice.package_config">
-<code class="sig-name descname">package_config</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.package_config" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageConfig</span></code></a> object.
-If not provided, <a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageConfig</span></code></a> instance with default arguments is used.</p>
+<code class="sig-name descname">package_config</code><a class="headerlink" href="#cdk_chalice.Chalice.package_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageConfig</span></code></a>) If not provided, <a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackageConfig</span></code></a>
+instance with default arguments is used.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cdk_chalice.Chalice.sam_package_dir">
-<code class="sig-name descname">sam_package_dir</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.sam_package_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to directory with output of <cite>chalice package</cite> command.</p>
-</dd></dl>
-
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.Chalice.sam_template">
-<code class="sig-name descname">sam_template</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.sam_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>AWS SAM template updated with AWS CDK values where applicable.</p>
+<code class="sig-name descname">sam_template</code><a class="headerlink" href="#cdk_chalice.Chalice.sam_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">aws_cdk.cloudformation_include.CfnInclude</span></code>) AWS SAM template
+updated with AWS CDK values where applicable. Can be used to reference,
+access, and customize resources generated by <cite>chalice package</cite> command
+as CDK native objects.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.Chalice.source_dir">
-<code class="sig-name descname">source_dir</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.source_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to Chalice application source code.</p>
+<code class="sig-name descname">source_dir</code><a class="headerlink" href="#cdk_chalice.Chalice.source_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) Path to Chalice application source code.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.Chalice.stage_config">
-<code class="sig-name descname">stage_config</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.stage_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Chalice stage configuration.
+<code class="sig-name descname">stage_config</code><a class="headerlink" href="#cdk_chalice.Chalice.stage_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) Chalice stage configuration.
 The object has the same structure as Chalice JSON stage configuration.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.Chalice.stage_name">
-<code class="sig-name descname">stage_name</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.Chalice.stage_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Chalice stage name.
+<code class="sig-name descname">stage_name</code><a class="headerlink" href="#cdk_chalice.Chalice.stage_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) Chalice stage name.
 It is automatically assigned the encompassing CDK <code class="docutils literal notranslate"><span class="pre">scope</span></code>’s name.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+</div>
+<div class="section" id="packageconfig">
+<h2><a class="toc-backref" href="#id2">PackageConfig</a><a class="headerlink" href="#packageconfig" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
 <dt id="cdk_chalice.PackageConfig">
-<em class="property">class </em><code class="sig-prename descclassname">cdk_chalice.</code><code class="sig-name descname">PackageConfig</code><span class="sig-paren">(</span><em class="sig-param">use_container: bool = False</em>, <em class="sig-param">image: str = None</em>, <em class="sig-param">env: Dict[str</em>, <em class="sig-param">str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cdk_chalice.html#PackageConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.PackageConfig" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">cdk_chalice.</code><code class="sig-name descname">PackageConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_container</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">image</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cdk_chalice.html#PackageConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.PackageConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configuration for packaging Chalice app.</p>
 <p>If your functions depend on packages that have natively compiled dependencies,
 build your functions inside a Docker container. In order to instruct
@@ -121,9 +123,9 @@ build your functions inside a Docker container. In order to instruct
 <p>When packaging the Chalice app in Docker container, the default image closely
 mimics AWS Lambda execution environment. If a custom container image is used,
 it is the owner responsibility to make sure it mimics Lambda execution environment.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="cdk_chalice.PackageConfig.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">use_container: bool = False</em>, <em class="sig-param">image: str = None</em>, <em class="sig-param">env: Dict[str</em>, <em class="sig-param">str] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#PackageConfig.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.PackageConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_container</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">image</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#PackageConfig.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.PackageConfig.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -138,31 +140,45 @@ specified otherwise.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.PackageConfig.env">
-<code class="sig-name descname">env</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.PackageConfig.env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Environment variables used during packaging.</p>
+<code class="sig-name descname">env</code><a class="headerlink" href="#cdk_chalice.PackageConfig.env" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict[str,str]</span></code>) Environment variables used during packaging.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.PackageConfig.image">
-<code class="sig-name descname">image</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.PackageConfig.image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Docker image name. Used when <a class="reference internal" href="#cdk_chalice.PackageConfig.use_container" title="cdk_chalice.PackageConfig.use_container"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_container</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<code class="sig-name descname">image</code><a class="headerlink" href="#cdk_chalice.PackageConfig.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) Docker image name. Used when <a class="reference internal" href="#cdk_chalice.PackageConfig.use_container" title="cdk_chalice.PackageConfig.use_container"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_container</span></code></a> is set
+to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="cdk_chalice.PackageConfig.use_container">
-<code class="sig-name descname">use_container</code><em class="property"> = None</em><a class="headerlink" href="#cdk_chalice.PackageConfig.use_container" title="Permalink to this definition">¶</a></dt>
-<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, package the Chalice app in Docker container. By default
-packages the app in subprocess.</p>
+<code class="sig-name descname">use_container</code><a class="headerlink" href="#cdk_chalice.PackageConfig.use_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>(<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) If <code class="docutils literal notranslate"><span class="pre">True</span></code>, package the Chalice app in Docker container.
+By default packages the app in subprocess.</p>
 </dd></dl>
 
 </dd></dl>
 
 <span class="target" id="module-cdk_chalice"></span></div>
 <div class="section" id="usage-example">
-<h3>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h3>
-<p>Example of using Chalice class in a stack that creates a basic web API</p>
+<h2><a class="toc-backref" href="#id3">Usage Example</a><a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<p>Example of using Chalice class in a stack that creates a basic web API.</p>
+<p>Note the customization of Chalice-generated resources using <code class="docutils literal notranslate"><span class="pre">self.chalice.sam_template</span></code> attribute. <cite>cdk-chalice</cite> uses
+<a class="reference external" href="https://docs.aws.amazon.com/cdk/api/latest/docs/cloudformation-include-readme.html">aws_cdk.cloudformation_include</a>
+module to expose resources in the SAM template as native CDK objects. For example, <code class="docutils literal notranslate"><span class="pre">rest_api</span></code> variable below is an
+instance of <code class="docutils literal notranslate"><span class="pre">aws_cdk.aws_sam.CfnApi</span></code> class. This capability allows to reference or customize Chalice application
+resources within the broader CDK application.</p>
+<p>The workflow for customization would be as follows:</p>
+<ul class="simple">
+<li><p>Implement the initial Chalice application using stage configuration (<code class="docutils literal notranslate"><span class="pre">stage_config</span></code>)</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code></p></li>
+<li><p>Open the generated <code class="docutils literal notranslate"><span class="pre">sam.json</span></code> file under <code class="docutils literal notranslate"><span class="pre">cdk.out</span></code> directory and find the logical name of the relevant resource</p></li>
+<li><p>Retrieve the CDK object for the resource using <code class="docutils literal notranslate"><span class="pre">chalice.sam_template.getResource()</span></code> method</p></li>
+</ul>
+<p>Any modifications made to the resource will be reflected in the resulting CDK template.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">aws_cdk</span> <span class="kn">import</span> <span class="p">(</span>
@@ -207,6 +223,8 @@ packages the app in subprocess.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">chalice</span> <span class="o">=</span> <span class="n">Chalice</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;WebApi&#39;</span><span class="p">,</span> <span class="n">source_dir</span><span class="o">=</span><span class="n">web_api_source_dir</span><span class="p">,</span>
             <span class="n">stage_config</span><span class="o">=</span><span class="n">chalice_stage_config</span><span class="p">)</span>
+        <span class="n">rest_api</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chalice</span><span class="o">.</span><span class="n">sam_template</span><span class="o">.</span><span class="n">get_resource</span><span class="p">(</span><span class="s1">&#39;RestAPI&#39;</span><span class="p">)</span>
+        <span class="n">rest_api</span><span class="o">.</span><span class="n">tracing_enabled</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_create_chalice_stage_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">chalice_stage_config</span> <span class="o">=</span> <span class="p">{</span>
@@ -232,15 +250,6 @@ packages the app in subprocess.</p>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
 </div>
 
 

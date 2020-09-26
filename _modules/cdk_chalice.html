@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>cdk_chalice &#8212; cdk-chalice 0.7.2 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cdk_chalice &#8212; cdk-chalice 0.8.0 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -44,6 +45,7 @@
 <span class="kn">import</span> <span class="nn">docker</span>
 <span class="kn">from</span> <span class="nn">aws_cdk</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">aws_s3_assets</span> <span class="k">as</span> <span class="n">assets</span><span class="p">,</span>
+    <span class="n">cloudformation_include</span><span class="p">,</span>
     <span class="n">core</span> <span class="k">as</span> <span class="n">cdk</span>
 <span class="p">)</span>
 
@@ -66,7 +68,6 @@
 <span class="sd">    it is the owner responsibility to make sure it mimics Lambda execution environment.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># pylint: disable=bad-whitespace</span>
     <span class="c1"># Dict[str,str] with spaces is not parsed correctly by Sphinx.</span>
 <div class="viewcode-block" id="PackageConfig.__init__"><a class="viewcode-back" href="../index.html#cdk_chalice.PackageConfig.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_container</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">env</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: E231</span>
@@ -80,16 +81,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">python_version</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="si">}</span><span class="s1">&#39;</span>
 
-        <span class="c1">#: If ``True``, package the Chalice app in Docker container. By default</span>
-        <span class="c1">#: packages the app in subprocess.</span>
+        <span class="c1">#: (:class:`bool`) If ``True``, package the Chalice app in Docker container.</span>
+        <span class="c1">#: By default packages the app in subprocess.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_container</span> <span class="o">=</span> <span class="n">use_container</span>
 
-        <span class="c1">#: Docker image name. Used when :attr:`use_container` is set to ``True``.</span>
+        <span class="c1">#: (:class:`str`) Docker image name. Used when :attr:`use_container` is set</span>
+        <span class="c1">#: to ``True``.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;lambci/lambda:build-python</span><span class="si">{</span><span class="n">python_version</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
 
-        <span class="c1">#: Environment variables used during packaging.</span>
+        <span class="c1">#: (:class:`Dict[str,str]`) Environment variables used during packaging.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span> <span class="k">if</span> <span class="n">env</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;AWS_DEFAULT_REGION&#39;</span><span class="p">,</span> <span class="n">_AWS_DEFAULT_REGION</span><span class="p">)</span></div></div>
 
@@ -123,32 +125,40 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="c1">#: Path to Chalice application source code.</span>
+        <span class="c1">#: (:class:`str`) Path to Chalice application source code.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">source_dir</span><span class="p">)</span>
 
-        <span class="c1">#: Chalice stage name.</span>
+        <span class="c1">#: (:class:`str`) Chalice stage name.</span>
         <span class="c1">#: It is automatically assigned the encompassing CDK ``scope``&#39;s name.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stage_name</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
 
-        <span class="c1">#: Chalice stage configuration.</span>
+        <span class="c1">#: (:class:`dict`) Chalice stage configuration.</span>
         <span class="c1">#: The object has the same structure as Chalice JSON stage configuration.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stage_config</span> <span class="o">=</span> <span class="n">stage_config</span>
 
-        <span class="c1">#: :class:`PackageConfig` object.</span>
-        <span class="c1">#: If not provided, :class:`PackageConfig` instance with default arguments is used.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">package_config</span> <span class="o">=</span> <span class="n">PackageConfig</span><span class="p">()</span> <span class="k">if</span> <span class="n">package_config</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">package_config</span>
+        <span class="c1">#: (:class:`PackageConfig`) If not provided, :class:`PackageConfig`</span>
+        <span class="c1">#: instance with default arguments is used.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">package_config</span> <span class="o">=</span> <span class="n">PackageConfig</span><span class="p">()</span> <span class="k">if</span> <span class="n">package_config</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">package_config</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_stage_with_config</span><span class="p">()</span>
 
-        <span class="c1">#: Path to directory with output of `chalice package` command.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sam_package_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_package_app</span><span class="p">()</span>
+        <span class="n">chalice_out_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;chalice.out&#39;</span><span class="p">)</span>
+        <span class="n">package_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sam_package_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chalice_out_dir</span><span class="p">,</span> <span class="n">package_id</span><span class="p">)</span>
 
-        <span class="c1">#: AWS SAM template updated with AWS CDK values where applicable.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sam_template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_sam_template</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_package_app</span><span class="p">()</span>
+        <span class="n">sam_template_with_assets_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_sam_template_with_assets</span><span class="p">(</span>
+            <span class="n">chalice_out_dir</span><span class="p">,</span> <span class="n">package_id</span><span class="p">)</span>
 
-        <span class="n">cdk</span><span class="o">.</span><span class="n">CfnInclude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ChaliceApp&#39;</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sam_template</span><span class="p">)</span></div>
+        <span class="c1">#: (:class:`aws_cdk.cloudformation_include.CfnInclude`) AWS SAM template</span>
+        <span class="c1">#: updated with AWS CDK values where applicable. Can be used to reference,</span>
+        <span class="c1">#: access, and customize resources generated by `chalice package` command</span>
+        <span class="c1">#: as CDK native objects.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sam_template</span> <span class="o">=</span> <span class="n">cloudformation_include</span><span class="o">.</span><span class="n">CfnInclude</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ChaliceApp&#39;</span><span class="p">,</span> <span class="n">template_file</span><span class="o">=</span><span class="n">sam_template_with_assets_file</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_create_stage_with_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_create_stage_with_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="s1">&#39;.chalice/config.json&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
@@ -159,22 +169,17 @@
             <span class="n">config_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
             <span class="n">config_file</span><span class="o">.</span><span class="n">truncate</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_package_app</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">chalice_out_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;chalice.out&#39;</span><span class="p">)</span>
-        <span class="n">sam_package_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chalice_out_dir</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Packaging Chalice app for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_package_app</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Packaging Chalice app for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stage_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_config</span><span class="o">.</span><span class="n">use_container</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_package_app_container</span><span class="p">(</span><span class="n">sam_package_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_package_app_container</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_package_app_subprocess</span><span class="p">(</span><span class="n">sam_package_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_package_app_subprocess</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">sam_package_dir</span>
-
-    <span class="k">def</span> <span class="nf">_package_app_container</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sam_package_dir</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_package_app_container</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">docker_volumes</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bind&#39;</span><span class="p">:</span> <span class="s1">&#39;/app&#39;</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;rw&#39;</span><span class="p">},</span>
-            <span class="n">sam_package_dir</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bind&#39;</span><span class="p">:</span> <span class="s1">&#39;/chalice.out&#39;</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;rw&#39;</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sam_package_dir</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bind&#39;</span><span class="p">:</span> <span class="s1">&#39;/chalice.out&#39;</span><span class="p">,</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="s1">&#39;rw&#39;</span><span class="p">}</span>
         <span class="p">}</span>
         <span class="n">docker_command</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s1">&#39;bash -c &quot;pip install --no-cache-dir -r requirements.txt; &#39;</span>
@@ -187,7 +192,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">package_config</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">docker_command</span><span class="p">,</span>
                 <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">package_config</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">volumes</span><span class="o">=</span><span class="n">docker_volumes</span><span class="p">,</span> <span class="n">working_dir</span><span class="o">=</span><span class="s1">&#39;/app&#39;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">NotFound</span><span class="p">:</span>
+        <span class="k">except</span> <span class="n">docker</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">NotFound</span> <span class="k">as</span> <span class="n">not_found_error</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="sa">f</span><span class="s1">&#39;Could not find the specified Docker image: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">package_config</span><span class="o">.</span><span class="n">image</span><span class="si">}</span><span class="s1">. &#39;</span>
                 <span class="s1">&#39;When using the default lambci/lambda images, make sure your Python &#39;</span>
@@ -195,25 +200,30 @@
                 <span class="s1">&#39;supported versions: &#39;</span>
                 <span class="s1">&#39;https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html&#39;</span>
             <span class="p">)</span>
-            <span class="k">raise</span> <span class="n">ChaliceError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ChaliceError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">not_found_error</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_package_app_subprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sam_package_dir</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_package_app_subprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">chalice_exe</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s1">&#39;chalice&#39;</span><span class="p">)</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">chalice_exe</span><span class="p">,</span> <span class="s1">&#39;package&#39;</span><span class="p">,</span> <span class="s1">&#39;--stage&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_name</span><span class="p">,</span> <span class="n">sam_package_dir</span><span class="p">]</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="n">chalice_exe</span><span class="p">,</span> <span class="s1">&#39;package&#39;</span><span class="p">,</span> <span class="s1">&#39;--stage&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage_name</span><span class="p">,</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">_sam_package_dir</span><span class="p">]</span>
 
         <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span>  <span class="c1"># nosec</span>
                        <span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">package_config</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_update_sam_template</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">deployment_zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sam_package_dir</span><span class="p">,</span> <span class="s1">&#39;deployment.zip&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_generate_sam_template_with_assets</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">chalice_out_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">package_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">deployment_zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sam_package_dir</span><span class="p">,</span> <span class="s1">&#39;deployment.zip&#39;</span><span class="p">)</span>
         <span class="n">sam_deployment_asset</span> <span class="o">=</span> <span class="n">assets</span><span class="o">.</span><span class="n">Asset</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ChaliceAppCode&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">deployment_zip_path</span><span class="p">)</span>
-        <span class="n">sam_template_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sam_package_dir</span><span class="p">,</span> <span class="s1">&#39;sam.json&#39;</span><span class="p">)</span>
+        <span class="n">sam_template_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sam_package_dir</span><span class="p">,</span> <span class="s1">&#39;sam.json&#39;</span><span class="p">)</span>
+        <span class="n">sam_template_with_assets_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">chalice_out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">package_id</span><span class="si">}</span><span class="s1">.sam_with_assets.json&#39;</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sam_template_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">sam_template_file</span><span class="p">:</span>
             <span class="n">sam_template</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sam_template_file</span><span class="p">)</span>
+
             <span class="n">functions</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span>
                 <span class="k">lambda</span> <span class="n">resource</span><span class="p">:</span> <span class="n">resource</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;AWS::Serverless::Function&#39;</span><span class="p">,</span>
                 <span class="n">sam_template</span><span class="p">[</span><span class="s1">&#39;Resources&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
@@ -223,8 +233,10 @@
                     <span class="s1">&#39;Bucket&#39;</span><span class="p">:</span> <span class="n">sam_deployment_asset</span><span class="o">.</span><span class="n">s3_bucket_name</span><span class="p">,</span>
                     <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="n">sam_deployment_asset</span><span class="o">.</span><span class="n">s3_object_key</span>
                 <span class="p">}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sam_template_with_assets_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sam_template_with_assets_file</span><span class="p">:</span>
+            <span class="n">sam_template_with_assets_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sam_template</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">sam_template</span></div>
+        <span class="k">return</span> <span class="n">sam_template_with_assets_path</span></div>
 </pre></div>
 
           </div>
