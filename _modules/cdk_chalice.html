@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cdk_chalice &#8212; cdk-chalice 0.8.0 documentation</title>
+    <title>cdk_chalice &#8212; cdk-chalice 0.8.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -112,8 +112,9 @@
 
     <span class="c1"># pylint: disable=redefined-builtin</span>
     <span class="c1"># The &#39;id&#39; parameter name is CDK convention.</span>
-<div class="viewcode-block" id="Chalice.__init__"><a class="viewcode-back" href="../index.html#cdk_chalice.Chalice.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">cdk</span><span class="o">.</span><span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stage_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-                 <span class="n">package_config</span><span class="p">:</span> <span class="n">PackageConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Chalice.__init__"><a class="viewcode-back" href="../index.html#cdk_chalice.Chalice.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">cdk</span><span class="o">.</span><span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">stage_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">package_config</span><span class="p">:</span> <span class="n">PackageConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">preserve_logical_ids</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param str source_dir: Path to Chalice application source code.</span>
 <span class="sd">        :param dict stage_config: Chalice stage configuration.</span>
@@ -121,6 +122,13 @@
 <span class="sd">            stage configuration.</span>
 <span class="sd">        :param `PackageConfig` package_config: Configuration for packaging the</span>
 <span class="sd">            Chalice application.</span>
+<span class="sd">        :param bool preserve_logical_ids: Whether the resources should have the same</span>
+<span class="sd">            logical IDs in the resulting CDK template as they did in the original</span>
+<span class="sd">            CloudFormation template file. If you’re vending a Construct using cdk-chalice,</span>
+<span class="sd">            make sure to pass this as ``False``. Note: regardless of whether this option</span>
+<span class="sd">            is true or false, the :attr:`sam_template`&#39;s ``get_resource`` and related</span>
+<span class="sd">            methods always uses the original logical ID of the resource/element, as</span>
+<span class="sd">            specified in the template file.</span>
 <span class="sd">        :raises `ChaliceError`: Error packaging the Chalice application.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -156,7 +164,8 @@
         <span class="c1">#: access, and customize resources generated by `chalice package` command</span>
         <span class="c1">#: as CDK native objects.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sam_template</span> <span class="o">=</span> <span class="n">cloudformation_include</span><span class="o">.</span><span class="n">CfnInclude</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ChaliceApp&#39;</span><span class="p">,</span> <span class="n">template_file</span><span class="o">=</span><span class="n">sam_template_with_assets_file</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ChaliceApp&#39;</span><span class="p">,</span> <span class="n">template_file</span><span class="o">=</span><span class="n">sam_template_with_assets_file</span><span class="p">,</span>
+            <span class="n">preserve_logical_ids</span><span class="o">=</span><span class="n">preserve_logical_ids</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_create_stage_with_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">config_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_dir</span><span class="p">,</span> <span class="s1">&#39;.chalice/config.json&#39;</span><span class="p">)</span>

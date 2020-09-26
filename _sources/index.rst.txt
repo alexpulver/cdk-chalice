@@ -44,8 +44,8 @@ The workflow for customization would be as follows:
 
 * Implement the initial Chalice application using stage configuration (``stage_config``)
 * Run ``cdk synth``
-* Open the generated ``sam.json`` file under ``cdk.out`` directory and find the logical name of the relevant resource
-* Retrieve the CDK object for the resource using ``chalice.sam_template.getResource()`` method
+* Open the generated ``chalice.out/<package ID>/sam.json`` file, and find the logical ID of the relevant resource
+* Retrieve the CDK object for the resource using ``self.chalice.sam_template.get_resource('<logical ID>')`` method
 
 Any modifications made to the resource will be reflected in the resulting CDK template. ::
 

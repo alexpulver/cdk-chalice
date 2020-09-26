@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.8.0 documentation</title>
+    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.8.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -54,7 +54,7 @@ Stage name will be the string representation of current CDK <code class="docutil
 into the construct tree under the provided <code class="docutils literal notranslate"><span class="pre">scope</span></code>.</p>
 <dl class="py method">
 <dt id="cdk_chalice.Chalice.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scope</span><span class="p">:</span> <span class="n">aws_cdk.core.Construct</span></em>, <em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">stage_config</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">package_config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig">cdk_chalice.PackageConfig</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#Chalice.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scope</span><span class="p">:</span> <span class="n">aws_cdk.core.Construct</span></em>, <em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">stage_config</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">package_config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig">cdk_chalice.PackageConfig</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">preserve_logical_ids</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/cdk_chalice.html#Chalice.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cdk_chalice.Chalice.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -64,6 +64,13 @@ The configuration object should have the same structure as Chalice JSON
 stage configuration.</p></li>
 <li><p><strong>package_config</strong> (<a class="reference internal" href="#cdk_chalice.PackageConfig" title="cdk_chalice.PackageConfig"><em>PackageConfig</em></a>) – Configuration for packaging the
 Chalice application.</p></li>
+<li><p><strong>preserve_logical_ids</strong> (<em>bool</em>) – Whether the resources should have the same
+logical IDs in the resulting CDK template as they did in the original
+CloudFormation template file. If you’re vending a Construct using cdk-chalice,
+make sure to pass this as <code class="docutils literal notranslate"><span class="pre">False</span></code>. Note: regardless of whether this option
+is true or false, the <a class="reference internal" href="#cdk_chalice.Chalice.sam_template" title="cdk_chalice.Chalice.sam_template"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sam_template</span></code></a>’s <code class="docutils literal notranslate"><span class="pre">get_resource</span></code> and related
+methods always uses the original logical ID of the resource/element, as
+specified in the template file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -175,8 +182,8 @@ resources within the broader CDK application.</p>
 <ul class="simple">
 <li><p>Implement the initial Chalice application using stage configuration (<code class="docutils literal notranslate"><span class="pre">stage_config</span></code>)</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">cdk</span> <span class="pre">synth</span></code></p></li>
-<li><p>Open the generated <code class="docutils literal notranslate"><span class="pre">sam.json</span></code> file under <code class="docutils literal notranslate"><span class="pre">cdk.out</span></code> directory and find the logical name of the relevant resource</p></li>
-<li><p>Retrieve the CDK object for the resource using <code class="docutils literal notranslate"><span class="pre">chalice.sam_template.getResource()</span></code> method</p></li>
+<li><p>Open the generated <code class="docutils literal notranslate"><span class="pre">chalice.out/&lt;package</span> <span class="pre">ID&gt;/sam.json</span></code> file, and find the logical ID of the relevant resource</p></li>
+<li><p>Retrieve the CDK object for the resource using <code class="docutils literal notranslate"><span class="pre">self.chalice.sam_template.get_resource('&lt;logical</span> <span class="pre">ID&gt;')</span></code> method</p></li>
 </ul>
 <p>Any modifications made to the resource will be reflected in the resulting CDK template.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
