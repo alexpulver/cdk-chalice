@@ -9,13 +9,19 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
-* Reference and customize Chalice-generated resources as native CDK objects
 
 ### Changes
 
 ### Fixes
 
 ### Breaks
+
+
+## 0.8.0 - (2020-09-26)
+---
+
+### New
+* Reference and customize Chalice-generated resources as native CDK objects
 
 
 ## 0.7.2 - (2020-08-13)
