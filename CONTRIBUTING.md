@@ -21,7 +21,7 @@ git checkout -b branch-name
 
 ```bash
 <hack>
-./scripts/run-tests.s
+./scripts/run-tests.sh
 git commit [OPTIONS] [ARGS]...
 ```
 
