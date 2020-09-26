@@ -11,11 +11,17 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ### New
 
 ### Changes
-* Enable or disable preserving logical IDs of the resources
 
 ### Fixes
 
 ### Breaks
+
+
+## 0.8.1 - (2020-09-26)
+---
+
+### Changes
+* Enable or disable preserving logical IDs of the resources
 
 
 ## 0.8.0 - (2020-09-26)
