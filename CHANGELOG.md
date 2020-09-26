@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
+* Reference and customize Chalice-generated resources as native CDK objects
 
 ### Changes
 

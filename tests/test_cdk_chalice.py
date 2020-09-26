@@ -16,7 +16,9 @@ class ChaliceTestCase(unittest.TestCase):
         os.chdir(self.temp_dir)
 
         self.cdk_out_dir = os.path.join(self.temp_dir, 'cdk.out')
+        os.makedirs(self.cdk_out_dir)
         self.chalice_out_dir = os.path.join(self.temp_dir, 'chalice.out')
+        os.makedirs(self.chalice_out_dir)
         shutil.copytree(os.path.join(os.path.dirname(__file__), 'chalice_app'),
                         os.path.join(self.temp_dir, 'chalice_app'))
         self.chalice_app_dir = os.path.join(self.temp_dir, 'chalice_app')
@@ -68,7 +70,22 @@ class ChaliceTestCase(unittest.TestCase):
                     stage_config=self.chalice_app_stage_config,
                     package_config=package_config)
 
-    def _synth_and_get_template(self, app: cdk.App, chalice: Chalice) -> dict:
+    def test_cloudformation_include(self) -> None:
+        app = cdk.App(outdir=self.cdk_out_dir)
+        stack = cdk.Stack(app, 'TestCloudformationInclude')
+        chalice = Chalice(stack, 'WebApi',
+                          source_dir=self.chalice_app_dir,
+                          stage_config=self.chalice_app_stage_config)
+        rest_api = chalice.sam_template.get_resource('RestAPI')
+        rest_api.tracing_enabled = True
+        template = self._synth_and_get_template(app, chalice)
+        self.assertEqual(
+            template['Resources']['RestAPI']['Properties']['TracingEnabled'],
+            True
+        )
+
+    @staticmethod
+    def _synth_and_get_template(app: cdk.App, chalice: Chalice) -> dict:
         cloud_assembly = app.synth()
 
         chalice_stack_name = cdk.Stack.of(chalice).stack_name
@@ -76,11 +93,10 @@ class ChaliceTestCase(unittest.TestCase):
 
         return template
 
-    def _check_basic_asserts(self, chalice, cloudformation_template) -> None:
-        self.assertTrue(os.path.exists(chalice.sam_package_dir))
+    def _check_basic_asserts(self, chalice, template) -> None:
         self.assertIsNotNone(chalice.sam_template)
         self.assertNotEqual(
-            cloudformation_template['Resources']['APIHandler']['Properties']['CodeUri'],
+            template['Resources']['APIHandler']['Properties']['CodeUri'],
             './deployment.zip'
         )
 
