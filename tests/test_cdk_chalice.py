@@ -16,7 +16,9 @@ class ChaliceTestCase(unittest.TestCase):
         os.chdir(self.temp_dir)
 
         self.cdk_out_dir = os.path.join(self.temp_dir, 'cdk.out')
+        os.makedirs(self.cdk_out_dir)
         self.chalice_out_dir = os.path.join(self.temp_dir, 'chalice.out')
+        os.makedirs(self.chalice_out_dir)
         shutil.copytree(os.path.join(os.path.dirname(__file__), 'chalice_app'),
                         os.path.join(self.temp_dir, 'chalice_app'))
         self.chalice_app_dir = os.path.join(self.temp_dir, 'chalice_app')
@@ -92,7 +94,6 @@ class ChaliceTestCase(unittest.TestCase):
         return template
 
     def _check_basic_asserts(self, chalice, template) -> None:
-        self.assertTrue(os.path.exists(chalice.sam_package_dir))
         self.assertIsNotNone(chalice.sam_template)
         self.assertNotEqual(
             template['Resources']['APIHandler']['Properties']['CodeUri'],
