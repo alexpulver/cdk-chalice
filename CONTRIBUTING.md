@@ -45,6 +45,9 @@ git branch -D branch-name
 ``` bash
 git checkout master
 git pull --rebase
+changelog current
+changelog suggest
+<bump version based on change from current to suggested version>
 ./scripts/bump-version.sh [ARGS]
 git push
 git push --tags
