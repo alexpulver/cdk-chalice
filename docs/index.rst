@@ -64,35 +64,23 @@ Any modifications made to the resource will be reflected in the resulting CDK te
         _API_HANDLER_LAMBDA_MEMORY_SIZE = 128
         _API_HANDLER_LAMBDA_TIMEOUT = 10
 
-        def __init__(self, scope: cdk.Construct, id: str, **kwargs)
-                -> None:
+        def __init__(self, scope: cdk.Construct, id: str, **kwargs) -> None:
             super().__init__(scope, id, **kwargs)
 
-            partition_key = dynamodb.Attribute(
-                name='username', type=dynamodb.AttributeType.STRING)
-            self.dynamodb_table = dynamodb.Table(
-                self, 'UsersTable', partition_key=partition_key,
-                removal_policy=cdk.RemovalPolicy.DESTROY)
-            cdk.CfnOutput(self, 'UsersTableName',
-                          value=self.dynamodb_table.table_name)
+            partition_key = dynamodb.Attribute(name='username', type=dynamodb.AttributeType.STRING)
+            self.dynamodb_table = dynamodb.Table(self, 'UsersTable', partition_key=partition_key,
+                                                 removal_policy=cdk.RemovalPolicy.DESTROY)
+            cdk.CfnOutput(self, 'UsersTableName', value=self.dynamodb_table.table_name)
 
-            lambda_service_principal = iam.ServicePrincipal(
-                'lambda.amazonaws.com')
-            self.api_handler_iam_role = iam.Role(
-                self, 'ApiHandlerLambdaRole',
-                assumed_by=lambda_service_principal)
+            lambda_service_principal = iam.ServicePrincipal('lambda.amazonaws.com')
+            self.api_handler_iam_role = iam.Role(self, 'ApiHandlerLambdaRole', assumed_by=lambda_service_principal)
 
-            self.dynamodb_table.grant_read_write_data(
-                self.api_handler_iam_role)
+            self.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
 
-            # Assuming 'web-api' is a relative directory in the same
-            # project/repository
-            web_api_source_dir = os.path.join(
-                os.path.dirname(__file__), os.pardir, 'web-api')
+            # Assuming 'runtime' is a relative directory in the same project/repository
+            runtime_source_dir = os.path.join(os.path.dirname(__file__), os.pardir, 'runtime')
             chalice_stage_config = self._create_chalice_stage_config()
-            self.chalice = Chalice(
-                self, 'WebApi', source_dir=web_api_source_dir,
-                stage_config=chalice_stage_config)
+            self.chalice = Chalice(self, 'WebApi', source_dir=runtime_source_dir, stage_config=chalice_stage_config)
             rest_api = self.chalice.sam_template.get_resource('RestAPI')
             rest_api.tracing_enabled = True
 
@@ -102,16 +90,12 @@ Any modifications made to the resource will be reflected in the resulting CDK te
                 'lambda_functions': {
                     'api_handler': {
                         'manage_iam_role': False,
-                        'iam_role_arn':
-                            self.api_handler_iam_role.role_arn,
+                        'iam_role_arn': self.api_handler_iam_role.role_arn,
                         'environment_variables': {
-                            'DYNAMODB_TABLE_NAME':
-                                self.dynamodb_table.table_name
+                            'DYNAMODB_TABLE_NAME': self.dynamodb_table.table_name
                         },
-                        'lambda_memory_size':
-                            WebApi._API_HANDLER_LAMBDA_MEMORY_SIZE,
-                        'lambda_timeout':
-                            WebApi._API_HANDLER_LAMBDA_TIMEOUT
+                        'lambda_memory_size': WebApi._API_HANDLER_LAMBDA_MEMORY_SIZE,
+                        'lambda_timeout': WebApi._API_HANDLER_LAMBDA_TIMEOUT
                     }
                 }
             }
