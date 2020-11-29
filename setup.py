@@ -34,6 +34,7 @@ setup(
         'aws_cdk.aws_s3_assets>=1.64.0',
         'aws_cdk.cloudformation_include>=1.64.0',
         'aws_cdk.core>=1.64.0',
+        'chalice',
         'docker'
     ],
     license=about['__license__'],

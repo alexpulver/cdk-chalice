@@ -2,17 +2,20 @@
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-The following is a set of guidelines for contributing to `cdk-chalice`. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to `cdk-chalice`. These are mostly 
+guidelines, not rules. Use your best judgment, and feel free to propose changes to this 
+document in a pull request.
 
 ## Contributor
 
 **Environment**
+
 ```bash
 git clone https://github.com/alexpulver/cdk-chalice.git
 cd cdk-chalice
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools
+pip install pip-tools==5.4.0
 pip-sync requirements.txt requirements-dev.txt
 git checkout -b branch-name
 ```
@@ -26,6 +29,7 @@ git commit [OPTIONS] [ARGS]...
 ```
 
 **Optional:** Use whenever you commit a change that affects how end users use cdk-chalice
+
 ```bash
 changelog [OPTIONS] COMMAND [ARGS]...
 git commit -m 'Update CHANGELOG.md' CHANGELOG.md

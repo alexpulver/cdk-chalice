@@ -1,10 +1,8 @@
 bandit
 bump2version
-chalice
 changelog-cli
 coverage
 flake8
-pip-tools
 pylint
 sphinx
 twine
