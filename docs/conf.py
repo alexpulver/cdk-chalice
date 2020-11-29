@@ -38,6 +38,7 @@ release = about['__version__']
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.githubpages',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
@@ -53,6 +54,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
 # -- Options for HTML output -------------------------------------------------
+
+# The URL which points to the root of the HTML documentation. It is used to
+# indicate the location of document like canonical_url.
+html_baseurl = 'https://cdk-chalice.softwhat.com'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
