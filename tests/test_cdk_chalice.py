@@ -84,6 +84,15 @@ class ChaliceTestCase(unittest.TestCase):
             True
         )
 
+    def test_chalice_out_directory_structure(self) -> None:
+        app = cdk.App(outdir=self.cdk_out_dir)
+        stack = cdk.Stack(app, 'TestChaliceOutDirectoryStructure')
+        Chalice(stack, 'WebApi', source_dir=self.chalice_app_dir,
+                stage_config=self.chalice_app_stage_config)
+        app.synth()
+        package_dir = f'{self.chalice_out_dir}/TestChaliceOutDirectoryStructureWebApi'
+        self.assertTrue(os.path.exists(package_dir))
+
     @staticmethod
     def _synth_and_get_template(app: cdk.App, chalice: Chalice) -> dict:
         cloud_assembly = app.synth()

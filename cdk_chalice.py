@@ -5,7 +5,6 @@ import os
 import shutil
 import subprocess  # nosec
 import sys
-import uuid
 from typing import Dict
 
 import docker
@@ -118,7 +117,7 @@ class Chalice(cdk.Construct):
         self._create_stage_with_config()
 
         chalice_out_dir = os.path.join(os.getcwd(), 'chalice.out')
-        package_id = uuid.uuid4().hex
+        package_id = self.node.path.replace('/', '')
         self._sam_package_dir = os.path.join(chalice_out_dir, package_id)
 
         self._package_app()
