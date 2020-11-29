@@ -6,7 +6,7 @@ cache: pip
 services: docker
 before_install:
 - nvm use 11
-- pip install pip-tools
+- pip install pip-tools==5.4.0
 install: pip-sync requirements.txt requirements-dev.txt
 script:
 - scripts/run-tests.sh

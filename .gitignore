@@ -4,6 +4,9 @@
 # PyCharm
 .idea/
 
+# pyenv
+.python-version
+
 # Environments
 .venv/
 
