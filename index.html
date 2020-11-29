@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.8.1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <title>Welcome to cdk-chalice’s documentation! &#8212; cdk-chalice 0.8.2 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -201,35 +201,23 @@ resources within the broader CDK application.</p>
     <span class="n">_API_HANDLER_LAMBDA_MEMORY_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
     <span class="n">_API_HANDLER_LAMBDA_TIMEOUT</span> <span class="o">=</span> <span class="mi">10</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">cdk</span><span class="o">.</span><span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">cdk</span><span class="o">.</span><span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="n">partition_key</span> <span class="o">=</span> <span class="n">dynamodb</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">dynamodb</span><span class="o">.</span><span class="n">AttributeType</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span> <span class="o">=</span> <span class="n">dynamodb</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UsersTable&#39;</span><span class="p">,</span> <span class="n">partition_key</span><span class="o">=</span><span class="n">partition_key</span><span class="p">,</span>
-            <span class="n">removal_policy</span><span class="o">=</span><span class="n">cdk</span><span class="o">.</span><span class="n">RemovalPolicy</span><span class="o">.</span><span class="n">DESTROY</span><span class="p">)</span>
-        <span class="n">cdk</span><span class="o">.</span><span class="n">CfnOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UsersTableName&#39;</span><span class="p">,</span>
-                      <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">table_name</span><span class="p">)</span>
+        <span class="n">partition_key</span> <span class="o">=</span> <span class="n">dynamodb</span><span class="o">.</span><span class="n">Attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">dynamodb</span><span class="o">.</span><span class="n">AttributeType</span><span class="o">.</span><span class="n">STRING</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span> <span class="o">=</span> <span class="n">dynamodb</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UsersTable&#39;</span><span class="p">,</span> <span class="n">partition_key</span><span class="o">=</span><span class="n">partition_key</span><span class="p">,</span>
+                                             <span class="n">removal_policy</span><span class="o">=</span><span class="n">cdk</span><span class="o">.</span><span class="n">RemovalPolicy</span><span class="o">.</span><span class="n">DESTROY</span><span class="p">)</span>
+        <span class="n">cdk</span><span class="o">.</span><span class="n">CfnOutput</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;UsersTableName&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">table_name</span><span class="p">)</span>
 
-        <span class="n">lambda_service_principal</span> <span class="o">=</span> <span class="n">iam</span><span class="o">.</span><span class="n">ServicePrincipal</span><span class="p">(</span>
-            <span class="s1">&#39;lambda.amazonaws.com&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span> <span class="o">=</span> <span class="n">iam</span><span class="o">.</span><span class="n">Role</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ApiHandlerLambdaRole&#39;</span><span class="p">,</span>
-            <span class="n">assumed_by</span><span class="o">=</span><span class="n">lambda_service_principal</span><span class="p">)</span>
+        <span class="n">lambda_service_principal</span> <span class="o">=</span> <span class="n">iam</span><span class="o">.</span><span class="n">ServicePrincipal</span><span class="p">(</span><span class="s1">&#39;lambda.amazonaws.com&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span> <span class="o">=</span> <span class="n">iam</span><span class="o">.</span><span class="n">Role</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ApiHandlerLambdaRole&#39;</span><span class="p">,</span> <span class="n">assumed_by</span><span class="o">=</span><span class="n">lambda_service_principal</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">grant_read_write_data</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">grant_read_write_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span><span class="p">)</span>
 
-        <span class="c1"># Assuming &#39;web-api&#39; is a relative directory in the same</span>
-        <span class="c1"># project/repository</span>
-        <span class="n">web_api_source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s1">&#39;web-api&#39;</span><span class="p">)</span>
+        <span class="c1"># Assuming &#39;runtime&#39; is a relative directory in the same project/repository</span>
+        <span class="n">runtime_source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">)</span>
         <span class="n">chalice_stage_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_chalice_stage_config</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">chalice</span> <span class="o">=</span> <span class="n">Chalice</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;WebApi&#39;</span><span class="p">,</span> <span class="n">source_dir</span><span class="o">=</span><span class="n">web_api_source_dir</span><span class="p">,</span>
-            <span class="n">stage_config</span><span class="o">=</span><span class="n">chalice_stage_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chalice</span> <span class="o">=</span> <span class="n">Chalice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;WebApi&#39;</span><span class="p">,</span> <span class="n">source_dir</span><span class="o">=</span><span class="n">runtime_source_dir</span><span class="p">,</span> <span class="n">stage_config</span><span class="o">=</span><span class="n">chalice_stage_config</span><span class="p">)</span>
         <span class="n">rest_api</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chalice</span><span class="o">.</span><span class="n">sam_template</span><span class="o">.</span><span class="n">get_resource</span><span class="p">(</span><span class="s1">&#39;RestAPI&#39;</span><span class="p">)</span>
         <span class="n">rest_api</span><span class="o">.</span><span class="n">tracing_enabled</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -239,16 +227,12 @@ resources within the broader CDK application.</p>
             <span class="s1">&#39;lambda_functions&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;api_handler&#39;</span><span class="p">:</span> <span class="p">{</span>
                     <span class="s1">&#39;manage_iam_role&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s1">&#39;iam_role_arn&#39;</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span><span class="o">.</span><span class="n">role_arn</span><span class="p">,</span>
+                    <span class="s1">&#39;iam_role_arn&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_handler_iam_role</span><span class="o">.</span><span class="n">role_arn</span><span class="p">,</span>
                     <span class="s1">&#39;environment_variables&#39;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="s1">&#39;DYNAMODB_TABLE_NAME&#39;</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">table_name</span>
+                        <span class="s1">&#39;DYNAMODB_TABLE_NAME&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dynamodb_table</span><span class="o">.</span><span class="n">table_name</span>
                     <span class="p">},</span>
-                    <span class="s1">&#39;lambda_memory_size&#39;</span><span class="p">:</span>
-                        <span class="n">WebApi</span><span class="o">.</span><span class="n">_API_HANDLER_LAMBDA_MEMORY_SIZE</span><span class="p">,</span>
-                    <span class="s1">&#39;lambda_timeout&#39;</span><span class="p">:</span>
-                        <span class="n">WebApi</span><span class="o">.</span><span class="n">_API_HANDLER_LAMBDA_TIMEOUT</span>
+                    <span class="s1">&#39;lambda_memory_size&#39;</span><span class="p">:</span> <span class="n">WebApi</span><span class="o">.</span><span class="n">_API_HANDLER_LAMBDA_MEMORY_SIZE</span><span class="p">,</span>
+                    <span class="s1">&#39;lambda_timeout&#39;</span><span class="p">:</span> <span class="n">WebApi</span><span class="o">.</span><span class="n">_API_HANDLER_LAMBDA_TIMEOUT</span>
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
