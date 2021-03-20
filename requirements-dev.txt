@@ -4,65 +4,146 @@
 #
 #    pip-compile requirements-dev.in
 #
-alabaster==0.7.12         # via sphinx
-astroid==2.4.2            # via pylint
-babel==2.9.0              # via sphinx
-bandit==1.6.2             # via -r requirements-dev.in
-bleach==3.2.1             # via readme-renderer
-bump2version==1.0.1       # via -r requirements-dev.in
-certifi==2020.11.8        # via requests
-changelog-cli==0.7.1      # via -r requirements-dev.in
-chardet==3.0.4            # via requests
-click==7.1.2              # via changelog-cli
-colorama==0.4.4           # via twine
-coverage==5.3             # via -r requirements-dev.in
-docutils==0.16            # via readme-renderer, sphinx
-flake8==3.8.4             # via -r requirements-dev.in
-gitdb==4.0.5              # via gitpython
-gitpython==3.1.11         # via bandit
-idna==2.10                # via requests
-imagesize==1.2.0          # via sphinx
-importlib-metadata==3.1.0  # via flake8, keyring, stevedore, twine
-isort==5.6.4              # via pylint
-jinja2==2.11.2            # via sphinx
-keyring==21.5.0           # via twine
-lazy-object-proxy==1.4.3  # via astroid
-markupsafe==1.1.1         # via jinja2
-mccabe==0.6.1             # via flake8, pylint
-packaging==20.4           # via bleach, sphinx
-pbr==5.5.1                # via stevedore
-pkginfo==1.6.1            # via twine
-pycodestyle==2.6.0        # via flake8
-pyflakes==2.2.0           # via flake8
-pygments==2.7.2           # via readme-renderer, sphinx
-pylint==2.6.0             # via -r requirements-dev.in
-pyparsing==2.4.7          # via packaging
-pytz==2020.4              # via babel
-pyyaml==5.3.1             # via bandit
-readme-renderer==28.0     # via twine
-requests-toolbelt==0.9.1  # via twine
-requests==2.25.0          # via requests-toolbelt, sphinx, twine
-rfc3986==1.4.0            # via twine
-six==1.15.0               # via astroid, bandit, bleach, packaging, readme-renderer
-smmap==3.0.4              # via gitdb
-snowballstemmer==2.0.0    # via sphinx
-sphinx==3.3.1             # via -r requirements-dev.in
-sphinxcontrib-applehelp==1.0.2  # via sphinx
-sphinxcontrib-devhelp==1.0.2  # via sphinx
-sphinxcontrib-htmlhelp==1.0.3  # via sphinx
-sphinxcontrib-jsmath==1.0.1  # via sphinx
-sphinxcontrib-qthelp==1.0.3  # via sphinx
-sphinxcontrib-serializinghtml==1.1.4  # via sphinx
-stevedore==3.2.2          # via bandit
-toml==0.10.2              # via pylint
-tqdm==4.53.0              # via twine
-twine==3.2.0              # via -r requirements-dev.in
-typed-ast==1.4.1          # via astroid
-urllib3==1.26.2           # via requests
-webencodings==0.5.1       # via bleach
-wheel==0.35.1             # via -r requirements-dev.in
-wrapt==1.12.1             # via astroid
-zipp==3.4.0               # via importlib-metadata
+alabaster==0.7.12
+    # via sphinx
+astroid==2.4.2
+    # via pylint
+babel==2.9.0
+    # via sphinx
+bandit==1.6.2
+    # via -r requirements-dev.in
+bleach==3.2.1
+    # via readme-renderer
+bump2version==1.0.1
+    # via -r requirements-dev.in
+certifi==2020.11.8
+    # via requests
+cffi==1.14.5
+    # via cryptography
+changelog-cli==0.7.1
+    # via -r requirements-dev.in
+chardet==3.0.4
+    # via requests
+click==7.1.2
+    # via changelog-cli
+colorama==0.4.4
+    # via twine
+coverage==5.3
+    # via -r requirements-dev.in
+cryptography==3.4.6
+    # via secretstorage
+docutils==0.16
+    # via
+    #   readme-renderer
+    #   sphinx
+flake8==3.8.4
+    # via -r requirements-dev.in
+gitdb==4.0.5
+    # via gitpython
+gitpython==3.1.11
+    # via bandit
+idna==2.10
+    # via requests
+imagesize==1.2.0
+    # via sphinx
+isort==5.6.4
+    # via pylint
+jeepney==0.6.0
+    # via
+    #   keyring
+    #   secretstorage
+jinja2==2.11.3
+    # via sphinx
+keyring==21.5.0
+    # via twine
+lazy-object-proxy==1.4.3
+    # via astroid
+markupsafe==1.1.1
+    # via jinja2
+mccabe==0.6.1
+    # via
+    #   flake8
+    #   pylint
+packaging==20.4
+    # via
+    #   bleach
+    #   sphinx
+pbr==5.5.1
+    # via stevedore
+pkginfo==1.6.1
+    # via twine
+pycodestyle==2.6.0
+    # via flake8
+pycparser==2.20
+    # via cffi
+pyflakes==2.2.0
+    # via flake8
+pygments==2.7.2
+    # via
+    #   readme-renderer
+    #   sphinx
+pylint==2.6.0
+    # via -r requirements-dev.in
+pyparsing==2.4.7
+    # via packaging
+pytz==2020.4
+    # via babel
+pyyaml==5.3.1
+    # via bandit
+readme-renderer==28.0
+    # via twine
+requests-toolbelt==0.9.1
+    # via twine
+requests==2.25.0
+    # via
+    #   requests-toolbelt
+    #   sphinx
+    #   twine
+rfc3986==1.4.0
+    # via twine
+secretstorage==3.3.1
+    # via keyring
+six==1.15.0
+    # via
+    #   astroid
+    #   bandit
+    #   bleach
+    #   packaging
+    #   readme-renderer
+smmap==3.0.4
+    # via gitdb
+snowballstemmer==2.0.0
+    # via sphinx
+sphinx==3.3.1
+    # via -r requirements-dev.in
+sphinxcontrib-applehelp==1.0.2
+    # via sphinx
+sphinxcontrib-devhelp==1.0.2
+    # via sphinx
+sphinxcontrib-htmlhelp==1.0.3
+    # via sphinx
+sphinxcontrib-jsmath==1.0.1
+    # via sphinx
+sphinxcontrib-qthelp==1.0.3
+    # via sphinx
+sphinxcontrib-serializinghtml==1.1.4
+    # via sphinx
+stevedore==3.2.2
+    # via bandit
+toml==0.10.2
+    # via pylint
+tqdm==4.53.0
+    # via twine
+twine==3.2.0
+    # via -r requirements-dev.in
+urllib3==1.26.2
+    # via requests
+webencodings==0.5.1
+    # via bleach
+wheel==0.35.1
+    # via -r requirements-dev.in
+wrapt==1.12.1
+    # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
