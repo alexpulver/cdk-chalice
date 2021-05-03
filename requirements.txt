@@ -185,7 +185,7 @@ publication==0.0.3        # via aws-cdk.alexa-ask, aws-cdk.assets, aws-cdk.aws-a
 python-dateutil==2.8.1    # via botocore, jsii
 python-editor==1.0.4      # via inquirer
 pyyaml==5.4.1             # via chalice
-readchar==2.0.1           # via inquirer
+readchar==3.0.4           # via inquirer
 requests==2.25.1          # via docker
 six==1.15.0               # via blessed, chalice, python-dateutil, websocket-client
 typing-extensions==3.10.0.0  # via jsii
