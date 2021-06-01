@@ -169,7 +169,7 @@ aws-cdk.lambda-layer-kubectl==1.101.0  # via aws-cdk.aws-eks
 aws-cdk.region-info==1.101.0  # via aws-cdk.aws-codebuild, aws-cdk.aws-ec2, aws-cdk.aws-elasticloadbalancingv2, aws-cdk.aws-iam, aws-cdk.aws-route53-targets, aws-cdk.core
 blessed==1.17.6           # via inquirer
 botocore==1.20.62         # via chalice
-cattrs==1.5.0             # via jsii
+cattrs==1.7.1             # via jsii
 certifi==2020.12.5        # via requests
 chalice==1.22.4           # via cdk-chalice (setup.py)
 chardet==4.0.0            # via requests
