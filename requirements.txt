@@ -189,7 +189,7 @@ readchar==2.0.1           # via inquirer
 requests==2.25.1          # via docker
 six==1.15.0               # via blessed, chalice, python-dateutil, websocket-client
 typing-extensions==3.10.0.0  # via jsii
-urllib3==1.26.4           # via botocore, requests
+urllib3==1.26.5           # via botocore, requests
 wcwidth==0.2.5            # via blessed
 websocket-client==0.58.0  # via docker
 wheel==0.36.2             # via chalice
