@@ -72,7 +72,7 @@ aws-cdk.aws-elasticbeanstalk==1.101.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-elasticloadbalancing==1.101.0  # via aws-cdk.aws-autoscaling, aws-cdk.aws-codedeploy, aws-cdk.aws-ecs, aws-cdk.aws-route53-targets, aws-cdk.cloudformation-include
 aws-cdk.aws-elasticloadbalancingv2==1.101.0  # via aws-cdk.aws-apigateway, aws-cdk.aws-autoscaling, aws-cdk.aws-codedeploy, aws-cdk.aws-ecs, aws-cdk.aws-route53-targets, aws-cdk.aws-servicediscovery, aws-cdk.cloudformation-include
 aws-cdk.aws-elasticsearch==1.101.0  # via aws-cdk.cloudformation-include
-aws-cdk.aws-emr==1.101.0  # via aws-cdk.cloudformation-include
+aws-cdk.aws-emr==1.107.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-emrcontainers==1.101.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-events==1.101.0  # via aws-cdk.aws-backup, aws-cdk.aws-cloudtrail, aws-cdk.aws-codebuild, aws-cdk.aws-codecommit, aws-cdk.aws-codepipeline, aws-cdk.aws-config, aws-cdk.aws-ecr, aws-cdk.aws-lambda, aws-cdk.aws-rds, aws-cdk.aws-s3, aws-cdk.aws-sns, aws-cdk.aws-stepfunctions, aws-cdk.cloudformation-include
 aws-cdk.aws-eventschemas==1.101.0  # via aws-cdk.cloudformation-include
