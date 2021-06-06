@@ -1,3 +1,4 @@
+-c requirements.txt
 bandit
 bump2version
 changelog-cli

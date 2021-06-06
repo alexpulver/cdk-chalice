@@ -10,5 +10,6 @@ updates:
     schedule:
       interval: "monthly"
     ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-patch"]
+      - dependency-name: "constructs"
+        # constructs v10 is not backwards compatible with CDK v1, that this project supports
+        update-types: ["version-update:semver-major"]
