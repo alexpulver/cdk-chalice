@@ -915,7 +915,7 @@ chalice==1.23.0
     # via cdk-chalice (setup.py)
 chardet==4.0.0
     # via requests
-click==7.1.2
+click==8.0.1
     # via chalice
 constructs==3.3.75
     # via
