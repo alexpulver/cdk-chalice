@@ -15,9 +15,17 @@ git clone https://github.com/alexpulver/cdk-chalice.git
 cd cdk-chalice
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools==5.4.0
+pip install pip-tools==6.1.0
 pip-sync requirements.txt requirements-dev.txt
 git checkout -b branch-name
+```
+
+**Upgrading dependencies**
+
+```bash
+pip-compile --upgrade
+pip-compile --upgrade requirements-dev.in
+pip-sync requirements.txt requirements-dev.txt
 ```
 
 **Implementation**
