@@ -41,7 +41,7 @@ aws-cdk.aws-cloudwatch==1.101.0  # via aws-cdk.aws-apigateway, aws-cdk.aws-apiga
 aws-cdk.aws-codeartifact==1.101.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-codebuild==1.101.0  # via aws-cdk.aws-amplify, aws-cdk.cloudformation-include
 aws-cdk.aws-codecommit==1.101.0  # via aws-cdk.aws-amplify, aws-cdk.aws-cloud9, aws-cdk.aws-codebuild, aws-cdk.cloudformation-include
-aws-cdk.aws-codedeploy==1.101.0  # via aws-cdk.cloudformation-include
+aws-cdk.aws-codedeploy==1.107.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-codeguruprofiler==1.101.0  # via aws-cdk.aws-lambda, aws-cdk.cloudformation-include
 aws-cdk.aws-codegurureviewer==1.101.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-codepipeline==1.101.0  # via aws-cdk.cloudformation-include
