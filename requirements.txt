@@ -6,7 +6,7 @@
 #
 attrs==20.3.0             # via cattrs, chalice, jsii
 aws-cdk.alexa-ask==1.101.0  # via aws-cdk.cloudformation-include
-aws-cdk.assets==1.101.0   # via aws-cdk.aws-codebuild, aws-cdk.aws-ecr-assets, aws-cdk.aws-s3-assets
+aws-cdk.assets==1.107.0   # via aws-cdk.aws-codebuild, aws-cdk.aws-ecr-assets, aws-cdk.aws-s3-assets
 aws-cdk.aws-accessanalyzer==1.101.0  # via aws-cdk.cloudformation-include
 aws-cdk.aws-acmpca==1.101.0  # via aws-cdk.aws-appmesh, aws-cdk.cloudformation-include
 aws-cdk.aws-amazonmq==1.101.0  # via aws-cdk.cloudformation-include
