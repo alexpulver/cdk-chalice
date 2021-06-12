@@ -15,8 +15,7 @@ git clone https://github.com/alexpulver/cdk-chalice.git
 cd cdk-chalice
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools==6.1.0
-pip-sync requirements.txt requirements-dev.txt
+./scripts/install-deps.sh
 git checkout -b BRANCH
 ```
 
@@ -25,7 +24,7 @@ git checkout -b BRANCH
 ```bash
 pip-compile --upgrade
 pip-compile --upgrade requirements-dev.in
-pip-sync requirements.txt requirements-dev.txt
+./scripts/install-deps.sh
 ```
 
 **Implementation**
@@ -54,7 +53,7 @@ git branch -D BRANCH
 
 ## Owner
 
-``` bash
+```bash
 git checkout master
 git pull --rebase
 changelog current

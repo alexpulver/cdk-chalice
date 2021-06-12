@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.com/alexpulver/cdk-chalice.svg?branch=master)](https://travis-ci.com/alexpulver/cdk-chalice)
 [![codecov](https://codecov.io/gh/alexpulver/cdk-chalice/branch/master/graph/badge.svg)](https://codecov.io/gh/alexpulver/cdk-chalice)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alexpulver_cdk-chalice&metric=alert_status)](https://sonarcloud.io/dashboard?id=alexpulver_cdk-chalice)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contributors](https://img.shields.io/github/contributors/alexpulver/cdk-chalice.svg)](https://github.com/alexpulver/cdk-chalice/graphs/contributors)
 
 **AWS CDK construct for AWS Chalice**
