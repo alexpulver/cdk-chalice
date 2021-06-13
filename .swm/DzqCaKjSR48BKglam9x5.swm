@@ -1,0 +1,48 @@
+{
+    "id": "DzqCaKjSR48BKglam9x5",
+    "name": "Version management across modules and files",
+    "content": [
+        {
+            "type": "snippet",
+            "lines": [
+                " from setuptools import setup",
+                " ",
+                " ",
+                "*about = {}",
+                "*here = os.path.abspath(os.path.dirname(__file__))",
+                "*with open(os.path.join(here, \"about.py\"), \"r\", encoding=\"utf-8\") as f:",
+                "*    exec(f.read(), about)",
+                " ",
+                " with open(\"README.md\", \"r\", encoding=\"utf-8\") as f:",
+                "     readme = f.read()"
+            ],
+            "firstLineNumber": 4,
+            "path": "setup.py",
+            "comments": [
+                ""
+            ]
+        },
+        {
+            "type": "snippet",
+            "lines": [
+                " __license__ = \"MIT License\"",
+                " __title__ = \"cdk-chalice\"",
+                " __url__ = \"https://github.com/alexpulver/cdk-chalice\"",
+                "*__version__ = \"0.8.2\"",
+                "*"
+            ],
+            "firstLineNumber": 5,
+            "path": "about.py",
+            "comments": []
+        }
+    ],
+    "symbols": {},
+    "file_version": "2.0.1",
+    "meta": {
+        "app_version": "0.4.7-0",
+        "file_blobs": {
+            "setup.py": "d623167d875a97fee96d017229a49e9f521a0783",
+            "about.py": "9f9ffa64130513068f87b972e8799585607a9503"
+        }
+    }
+}
