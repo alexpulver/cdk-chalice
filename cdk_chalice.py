@@ -38,7 +38,10 @@ class PackageConfig:
         """
         :param bool use_container: Package the Chalice app in Docker container.
         :param str image: Docker image name.
-            Defaults to image that closely mimics AWS Lambda execution environment.
+            If image argument is not provided, the attribute is set to AWS Serverless
+            Application Model (AWS SAM) image from Amazon ECR Public. Current
+            environment's Python version is used to select the image repository.
+            For example: ``public.ecr.aws/sam/build-python3.7``.
         :param Dict[str,str] env: Environment variables to set for packaging.
             ``AWS_DEFAULT_REGION`` is set to ``us-east-1`` unless explicitly
             specified otherwise.
@@ -51,7 +54,7 @@ class PackageConfig:
 
         #: (:class:`str`) Docker image name. Used when :attr:`use_container` is set
         #: to ``True``.
-        self.image = f"lambci/lambda:build-python{python_version}"
+        self.image = f"public.ecr.aws/sam/build-python{python_version}"
         if image is not None:
             self.image = image
 

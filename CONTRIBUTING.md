@@ -47,6 +47,7 @@ git push --set-upstream origin BRANCH
 <open pull request>
 <pull request merged and remote branch deleted>
 git checkout master
+git pull --rebase
 git remote prune origin
 git branch -D BRANCH
 ```
@@ -58,8 +59,7 @@ git checkout master
 git pull --rebase
 changelog current
 changelog suggest
-<bump version based on change from current to suggested version>
-./scripts/bump-version.sh [ARGS]
+./scripts/bump-version.sh [ARGS]  # Bump based on change from current to suggested version
 git push
 git push --tags
 ```
