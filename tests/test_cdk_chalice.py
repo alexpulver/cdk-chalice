@@ -13,7 +13,9 @@ from cdk_chalice import PackageConfig
 
 class ChaliceTestCase(unittest.TestCase):
     def setUp(self) -> None:
-        self.temp_dir = tempfile.mkdtemp(dir="/tmp")
+        self.temp_dir = tempfile.mkdtemp(
+            dir="/tmp"  # NOSONAR: Accessible only by the creating user ID
+        )
         os.chdir(self.temp_dir)
 
         self.cdk_out_dir = os.path.join(self.temp_dir, "cdk.out")
@@ -41,7 +43,7 @@ class ChaliceTestCase(unittest.TestCase):
             json.dump(chalice_app_config, config_file, indent=2)
 
     def tearDown(self) -> None:
-        os.chdir("/tmp")
+        os.chdir("/tmp")  # NOSONAR: No access is performed here
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     def test_package_using_subprocess(self) -> None:
