@@ -81,6 +81,9 @@ mypy-extensions==0.4.3
     # via
     #   -c requirements.txt
     #   black
+    #   mypy
+mypy==0.902
+    # via -r requirements-dev.in
 packaging==20.9
     # via
     #   bleach
@@ -152,6 +155,7 @@ stevedore==3.3.0
 toml==0.10.2
     # via
     #   black
+    #   mypy
     #   pylint
 tqdm==4.61.0
     # via twine
@@ -161,12 +165,14 @@ typed-ast==1.4.3
     # via
     #   astroid
     #   black
+    #   mypy
 typing-extensions==3.10.0.0
     # via
     #   -c requirements.txt
     #   black
     #   gitpython
     #   importlib-metadata
+    #   mypy
 urllib3==1.26.5
     # via
     #   -c requirements.txt

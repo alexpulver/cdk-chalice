@@ -3,9 +3,11 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from aws_cdk import core as cdk
 
+import cdk_chalice
 from cdk_chalice import Chalice
 from cdk_chalice import ChaliceError
 from cdk_chalice import PackageConfig
@@ -57,6 +59,19 @@ class ChaliceTestCase(unittest.TestCase):
         )
         template = self._synth_and_get_template(app, chalice)
         self._check_basic_asserts(chalice, template)
+
+    @patch("cdk_chalice.shutil.which")
+    def test_package_using_subprocess_no_chalice_exe(self, mock_which) -> None:
+        mock_which.return_value = None
+        app = cdk.App(outdir=self.cdk_out_dir)
+        stack = cdk.Stack(app, "TestSubprocessNoChaliceExe")
+        with self.assertRaises(ChaliceError):
+            Chalice(
+                stack,
+                "WebApi",
+                source_dir=self.chalice_app_dir,
+                stage_config=self.chalice_app_stage_config,
+            )
 
     def test_package_using_docker(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)

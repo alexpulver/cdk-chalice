@@ -5,9 +5,9 @@ import os
 import shutil
 import subprocess  # nosec
 import sys
-from typing import Dict
+from typing import Any, Dict, Optional
 
-import docker
+import docker  # type: ignore
 from aws_cdk import aws_s3_assets as assets
 from aws_cdk import cloudformation_include
 from aws_cdk import core as cdk
@@ -30,20 +30,22 @@ class PackageConfig:
     it is the owner responsibility to make sure it mimics Lambda execution environment.
     """
 
-    # Dict[str,str] with spaces is not parsed correctly by Sphinx.
     def __init__(
-        self, use_container: bool = False, image: str = None, env: Dict[str, str] = None
-    ) -> None:  # noqa: E231
+        self,
+        use_container: bool = False,
+        image: Optional[str] = None,
+        env: Optional[Dict[str, str]] = None,
+    ) -> None:
         """
         :param bool use_container: Package the Chalice app in Docker container.
-        :param str image: Docker image name.
+        :param Optional[str] image: Docker image name.
             If image argument is not provided, the attribute is set to AWS Serverless
             Application Model (AWS SAM) image from Amazon ECR Public. Current
             environment's Python version is used to select the image repository.
             For example: ``public.ecr.aws/sam/build-python3.7``.
-        :param Dict[str,str] env: Environment variables to set for packaging.
-            ``AWS_DEFAULT_REGION`` is set to ``us-east-1`` unless explicitly
-            specified otherwise.
+        :param Optional[Dict[str,str]] env: Environment variables to set for
+            packaging. ``AWS_DEFAULT_REGION`` is set to ``us-east-1`` unless
+            explicitly specified otherwise.
         """
         python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
 
@@ -51,13 +53,14 @@ class PackageConfig:
         #: By default packages the app in subprocess.
         self.use_container = use_container
 
-        #: (:class:`str`) Docker image name. Used when :attr:`use_container` is set
-        #: to ``True``.
+        #: (:class:`Optional[str]`) Docker image name. Used when :attr:`use_container`
+        #: is set to ``True``.
         self.image = f"public.ecr.aws/sam/build-python{python_version}"
         if image is not None:
             self.image = image
 
-        #: (:class:`Dict[str,str]`) Environment variables used during packaging.
+        #: (:class:`Optional[Dict[str, str]]`) Environment variables used during
+        #: packaging.
         self.env = env if env is not None else {}
         self.env.setdefault("AWS_DEFAULT_REGION", _AWS_DEFAULT_REGION)
 
@@ -84,18 +87,17 @@ class Chalice(cdk.Construct):
         id: str,
         *,
         source_dir: str,
-        stage_config: dict,
-        package_config: PackageConfig = None,
+        stage_config: Dict[str, Any],
+        package_config: Optional[PackageConfig] = None,
         preserve_logical_ids: bool = True,
-        **kwargs,
     ) -> None:
         """
         :param str source_dir: Path to Chalice application source code.
-        :param dict stage_config: Chalice stage configuration.
+        :param Dict[str, Any] stage_config: Chalice stage configuration.
             The configuration object should have the same structure as Chalice JSON
             stage configuration.
-        :param `PackageConfig` package_config: Configuration for packaging the
-            Chalice application.
+        :param `Optional[PackageConfig]` package_config: Configuration for packaging
+            the Chalice application.
         :param bool preserve_logical_ids: Whether the resources should have the same
             logical IDs in the resulting CDK template as they did in the original
             CloudFormation template file. If you are vending a Construct using
@@ -105,7 +107,7 @@ class Chalice(cdk.Construct):
             of the resource/element, as specified in the template file.
         :raises `ChaliceError`: Error packaging the Chalice application.
         """
-        super().__init__(scope, id, **kwargs)
+        super().__init__(scope, id)
 
         #: (:class:`str`) Path to Chalice application source code.
         self.source_dir = os.path.abspath(source_dir)
@@ -114,11 +116,11 @@ class Chalice(cdk.Construct):
         #: It is automatically assigned the encompassing CDK ``scope``'s name.
         self.stage_name = scope.to_string()
 
-        #: (:class:`dict`) Chalice stage configuration.
+        #: (:class:`Dict[str, Any]`) Chalice stage configuration.
         #: The object has the same structure as Chalice JSON stage configuration.
         self.stage_config = stage_config
 
-        #: (:class:`PackageConfig`) If not provided, :class:`PackageConfig`
+        #: (:class:`Optional[PackageConfig]`) If not provided, :class:`PackageConfig`
         #: instance with default arguments is used.
         self.package_config = (
             PackageConfig() if package_config is None else package_config
@@ -198,6 +200,8 @@ class Chalice(cdk.Construct):
 
     def _package_app_subprocess(self) -> None:
         chalice_exe = shutil.which("chalice")
+        if chalice_exe is None:
+            raise ChaliceError("Could not find 'chalice' executable on PATH")
         command = [
             chalice_exe,
             "package",
