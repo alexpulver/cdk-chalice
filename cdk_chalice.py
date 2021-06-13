@@ -12,7 +12,6 @@ from aws_cdk import aws_s3_assets as assets
 from aws_cdk import cloudformation_include
 from aws_cdk import core as cdk
 
-
 _AWS_DEFAULT_REGION = "us-east-1"
 
 
