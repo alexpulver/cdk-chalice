@@ -62,7 +62,9 @@ importlib-metadata==4.5.0
     #   stevedore
     #   twine
 isort==5.8.0
-    # via pylint
+    # via
+    #   -r requirements-dev.in
+    #   pylint
 jinja2==3.0.1
     # via sphinx
 keyring==23.0.1

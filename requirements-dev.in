@@ -5,6 +5,7 @@ bump2version
 changelog-cli
 coverage
 flake8
+isort
 pylint
 sphinx
 twine

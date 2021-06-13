@@ -19,6 +19,15 @@ source .venv/bin/activate
 git checkout -b BRANCH
 ```
 
+**Adding dependencies**
+
+```bash
+<add dependencies to setup.py or requirements-dev.in>
+pip-compile
+pip-compile requirements-dev.in
+./scripts/install-deps.sh
+```
+
 **Upgrading dependencies**
 
 ```bash
