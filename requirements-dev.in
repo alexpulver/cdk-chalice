@@ -6,6 +6,7 @@ changelog-cli
 coverage
 flake8
 isort
+mypy
 pylint
 sphinx
 twine
