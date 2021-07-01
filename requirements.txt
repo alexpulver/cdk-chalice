@@ -301,7 +301,7 @@ aws-cdk.aws-finspace==1.107.0
     # via aws-cdk.cloudformation-include
 aws-cdk.aws-fis==1.107.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-fms==1.107.0
+aws-cdk.aws-fms==1.110.1
     # via aws-cdk.cloudformation-include
 aws-cdk.aws-frauddetector==1.107.0
     # via aws-cdk.cloudformation-include
