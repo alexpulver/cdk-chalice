@@ -630,7 +630,7 @@ aws-cdk.aws-signer==1.107.0
     # via
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-sns-subscriptions==1.107.0
+aws-cdk.aws-sns-subscriptions==1.110.1
     # via aws-cdk.aws-autoscaling-hooktargets
 aws-cdk.aws-sns==1.107.0
     # via
