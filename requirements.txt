@@ -523,7 +523,7 @@ aws-cdk.aws-opsworkscm==1.107.0
     # via aws-cdk.cloudformation-include
 aws-cdk.aws-pinpoint==1.107.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-pinpointemail==1.107.0
+aws-cdk.aws-pinpointemail==1.110.1
     # via aws-cdk.cloudformation-include
 aws-cdk.aws-qldb==1.107.0
     # via aws-cdk.cloudformation-include
