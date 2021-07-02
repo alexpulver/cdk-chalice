@@ -10,6 +10,18 @@ updates:
     schedule:
       interval: "monthly"
     ignore:
-      - dependency-name: "constructs"
         # constructs v10 is not backwards compatible with CDK v1, that this project supports
+      - dependency-name: "constructs"
         update-types: ["version-update:semver-major"]
+        # Ignoring all AWS CDK packages except "aws-cdk.core" to provide space for non-AWS CDK dependencies
+      - dependency-name: "aws-cdk.alexa-ask"
+      - dependency-name: "aws-cdk.assets"
+      - dependency-name: "aws-cdk.aws-*"
+      - dependency-name: "aws-cdk.cloud-assembly-schema"
+      - dependency-name: "aws-cdk.cloudformation-include"
+      - dependency-name: "aws-cdk.core"
+      - dependency-name: "aws-cdk.custom-resources"
+      - dependency-name: "aws-cdk.cx-api"
+      - dependency-name: "aws-cdk.lambda-layer-awscli"
+      - dependency-name: "aws-cdk.lambda-layer-kubectl"
+      - dependency-name: "aws-cdk.region-info"
