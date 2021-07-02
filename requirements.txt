@@ -1426,7 +1426,7 @@ six==1.16.0
     #   python-dateutil
 typing-extensions==3.10.0.0
     # via jsii
-urllib3==1.26.5
+urllib3==1.26.6
     # via
     #   botocore
     #   requests
