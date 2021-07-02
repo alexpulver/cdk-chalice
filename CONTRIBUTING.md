@@ -8,8 +8,7 @@ document in a pull request.
 
 ## Contributor
 
-**Environment**
-
+### Create development environment
 ```bash
 git clone https://github.com/alexpulver/cdk-chalice.git
 cd cdk-chalice
@@ -19,8 +18,7 @@ source .venv/bin/activate
 git checkout -b BRANCH
 ```
 
-**Adding dependencies**
-
+### [Optional] Add dependencies
 ```bash
 <add dependencies to setup.py or requirements-dev.in>
 pip-compile
@@ -28,29 +26,27 @@ pip-compile requirements-dev.in
 ./scripts/install-deps.sh
 ```
 
-**Upgrading dependencies**
-
+### [Optional] Upgrade dependencies
 ```bash
 pip-compile --upgrade
 pip-compile --upgrade requirements-dev.in
 ./scripts/install-deps.sh
 ```
 
-**Implementation**
-
+### Implement
 ```bash
 <hack>
 ./scripts/run-tests.sh
 git commit [OPTIONS] [ARGS]...
 ```
 
-**Optional:** Use whenever you commit a change that affects how end users use cdk-chalice
-
+### [Optional] Update CHANGELOG.md if your change affects library interface
 ```bash
 changelog [OPTIONS] COMMAND [ARGS]...
 git commit -m 'Update CHANGELOG.md' CHANGELOG.md
 ```
 
+### Submit pull request
 ```bash
 git push --set-upstream origin BRANCH
 <open pull request>
@@ -61,8 +57,7 @@ git remote prune origin
 git branch -D BRANCH
 ```
 
-## Owner
-
+## Maintainer
 ```bash
 git checkout master
 git pull --rebase
