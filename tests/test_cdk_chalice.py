@@ -3,14 +3,11 @@ import os
 import shutil
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest import mock
 
 from aws_cdk import core as cdk
 
 import cdk_chalice
-from cdk_chalice import Chalice
-from cdk_chalice import ChaliceError
-from cdk_chalice import PackageConfig
 
 
 class ChaliceTestCase(unittest.TestCase):
@@ -51,7 +48,7 @@ class ChaliceTestCase(unittest.TestCase):
     def test_package_using_subprocess(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestSubprocess")
-        chalice = Chalice(
+        chalice = cdk_chalice.Chalice(
             stack,
             "WebApi",
             source_dir=self.chalice_app_dir,
@@ -60,13 +57,13 @@ class ChaliceTestCase(unittest.TestCase):
         template = self._synth_and_get_template(app, chalice)
         self._check_basic_asserts(chalice, template)
 
-    @patch("cdk_chalice.shutil.which")
+    @mock.patch("cdk_chalice.shutil.which")
     def test_package_using_subprocess_no_chalice_exe(self, mock_which) -> None:
         mock_which.return_value = None
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestSubprocessNoChaliceExe")
-        with self.assertRaises(ChaliceError):
-            Chalice(
+        with self.assertRaises(cdk_chalice.ChaliceError):
+            cdk_chalice.Chalice(
                 stack,
                 "WebApi",
                 source_dir=self.chalice_app_dir,
@@ -76,8 +73,8 @@ class ChaliceTestCase(unittest.TestCase):
     def test_package_using_docker(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestDocker")
-        package_config = PackageConfig(use_container=True)
-        chalice = Chalice(
+        package_config = cdk_chalice.PackageConfig(use_container=True)
+        chalice = cdk_chalice.Chalice(
             stack,
             "WebApi",
             source_dir=self.chalice_app_dir,
@@ -90,9 +87,11 @@ class ChaliceTestCase(unittest.TestCase):
     def test_package_using_docker_image_not_found(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestDockerImageNotFound")
-        package_config = PackageConfig(use_container=True, image="cdk-chalice")
-        with self.assertRaises(ChaliceError):
-            Chalice(
+        package_config = cdk_chalice.PackageConfig(
+            use_container=True, image="cdk-chalice"
+        )
+        with self.assertRaises(cdk_chalice.ChaliceError):
+            cdk_chalice.Chalice(
                 stack,
                 "WebApi",
                 source_dir=self.chalice_app_dir,
@@ -103,7 +102,7 @@ class ChaliceTestCase(unittest.TestCase):
     def test_cloudformation_include(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestCloudformationInclude")
-        chalice = Chalice(
+        chalice = cdk_chalice.Chalice(
             stack,
             "WebApi",
             source_dir=self.chalice_app_dir,
@@ -119,7 +118,7 @@ class ChaliceTestCase(unittest.TestCase):
     def test_chalice_out_directory_structure(self) -> None:
         app = cdk.App(outdir=self.cdk_out_dir)
         stack = cdk.Stack(app, "TestChaliceOutDirectoryStructure")
-        Chalice(
+        cdk_chalice.Chalice(
             stack,
             "WebApi",
             source_dir=self.chalice_app_dir,
@@ -130,7 +129,7 @@ class ChaliceTestCase(unittest.TestCase):
         self.assertTrue(os.path.exists(package_dir))
 
     @staticmethod
-    def _synth_and_get_template(app: cdk.App, chalice: Chalice) -> dict:
+    def _synth_and_get_template(app: cdk.App, chalice: cdk_chalice.Chalice) -> dict:
         cloud_assembly = app.synth()
 
         chalice_stack_name = cdk.Stack.of(chalice).stack_name

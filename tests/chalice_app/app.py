@@ -1,6 +1,6 @@
-from chalice import Chalice
+import chalice
 
-app = Chalice(app_name="chalice_app")
+app = chalice.Chalice(app_name="chalice_app")
 
 
 @app.route("/")

@@ -8,7 +8,7 @@ import sys
 from typing import Any, Dict, Optional
 
 import docker  # type: ignore
-from aws_cdk import aws_s3_assets as assets
+from aws_cdk import aws_s3_assets as s3_assets
 from aws_cdk import cloudformation_include
 from aws_cdk import core as cdk
 
@@ -79,12 +79,10 @@ class Chalice(cdk.Construct):
     into the construct tree under the provided ``scope``.
     """
 
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
         self,
         scope: cdk.Construct,
-        id: str,
+        id_: str,
         *,
         source_dir: str,
         stage_config: Dict[str, Any],
@@ -107,7 +105,7 @@ class Chalice(cdk.Construct):
             of the resource/element, as specified in the template file.
         :raises `ChaliceError`: Error packaging the Chalice application.
         """
-        super().__init__(scope, id)
+        super().__init__(scope, id_)
 
         #: (:class:`str`) Path to Chalice application source code.
         self.source_dir = os.path.abspath(source_dir)
@@ -221,7 +219,7 @@ class Chalice(cdk.Construct):
         self, chalice_out_dir: str, package_id: str
     ) -> str:
         deployment_zip_path = os.path.join(self._sam_package_dir, "deployment.zip")
-        sam_deployment_asset = assets.Asset(
+        sam_deployment_asset = s3_assets.Asset(
             self, "ChaliceAppCode", path=deployment_zip_path
         )
         sam_template_path = os.path.join(self._sam_package_dir, "sam.json")

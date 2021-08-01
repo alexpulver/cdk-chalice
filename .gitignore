@@ -7,6 +7,9 @@
 # pyenv
 .python-version
 
+# mypy
+.mypy_cache/
+
 # Environments
 .venv/
 
