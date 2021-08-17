@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
+* Support for Python 3.9
 
 ### Changes
 * Switch default package image to AWS SAM from Amazon ECR Public
