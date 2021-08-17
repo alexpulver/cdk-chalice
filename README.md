@@ -1,7 +1,7 @@
 # cdk-chalice
 
 [![PyPI Version](https://badge.fury.io/py/cdk-chalice.svg)](https://badge.fury.io/py/cdk-chalice)
-![PythonSupport](https://img.shields.io/static/v1?label=python&message=3.6%20|%203.7%20|%203.8&color=blue?style=flat-square&logo=python)
+![PythonSupport](https://img.shields.io/static/v1?label=python&message=3.6%20|%203.7%20|%203.8%20|%203.9&color=blue?style=flat-square&logo=python)
 [![PyPI status](https://img.shields.io/pypi/status/cdk-chalice.svg)](https://pypi.python.org/pypi/cdk-chalice/)
 [![Downloads](https://pepy.tech/badge/cdk-chalice/month)](https://pypi.org/project/cdk-chalice)
 [![Build Status](https://travis-ci.com/alexpulver/cdk-chalice.svg?branch=master)](https://travis-ci.com/alexpulver/cdk-chalice)
