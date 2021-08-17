@@ -9,14 +9,22 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [Keep a Ch
 ---
 
 ### New
-* Support for Python 3.9
 
 ### Changes
-* Switch default package image to AWS SAM from Amazon ECR Public
 
 ### Fixes
 
 ### Breaks
+
+
+## 0.9.0 - (2021-08-17)
+---
+
+### New
+* Support for Python 3.9
+
+### Changes
+* Switch default package image to AWS SAM from Amazon ECR Public
 
 
 ## 0.8.2 - (2020-11-29)
