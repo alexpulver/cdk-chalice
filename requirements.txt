@@ -940,7 +940,7 @@ cattrs==1.6.0
     # via jsii
 certifi==2021.5.30
     # via requests
-chalice==1.24.0
+chalice==1.24.2
     # via cdk-chalice (setup.py)
 charset-normalizer==2.0.4
     # via requests
