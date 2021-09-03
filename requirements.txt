@@ -4,87 +4,87 @@
 #
 #    pip-compile
 #
-attrs==20.3.0
+attrs==21.2.0
     # via
     #   cattrs
     #   chalice
     #   jsii
-aws-cdk.alexa-ask==1.116.0
+aws-cdk.alexa-ask==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.assets==1.116.0
+aws-cdk.assets==1.121.0
     # via
     #   aws-cdk.aws-codebuild
     #   aws-cdk.aws-ecr-assets
     #   aws-cdk.aws-s3-assets
-aws-cdk.aws-accessanalyzer==1.116.0
+aws-cdk.aws-accessanalyzer==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-acmpca==1.116.0
+aws-cdk.aws-acmpca==1.121.0
     # via
     #   aws-cdk.aws-appmesh
     #   aws-cdk.aws-msk
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-amazonmq==1.116.0
+aws-cdk.aws-amazonmq==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-amplify==1.116.0
+aws-cdk.aws-amplify==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-apigateway==1.116.0
+aws-cdk.aws-apigateway==1.121.0
     # via
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-apigatewayv2==1.116.0
+aws-cdk.aws-apigatewayv2==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appconfig==1.116.0
+aws-cdk.aws-appconfig==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appflow==1.116.0
+aws-cdk.aws-appflow==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appintegrations==1.116.0
+aws-cdk.aws-appintegrations==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-applicationautoscaling==1.116.0
+aws-cdk.aws-applicationautoscaling==1.121.0
     # via
     #   aws-cdk.aws-dynamodb
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-applicationinsights==1.116.0
+aws-cdk.aws-applicationinsights==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appmesh==1.116.0
+aws-cdk.aws-appmesh==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-apprunner==1.116.0
+aws-cdk.aws-apprunner==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appstream==1.116.0
+aws-cdk.aws-appstream==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-appsync==1.116.0
+aws-cdk.aws-appsync==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-athena==1.116.0
+aws-cdk.aws-athena==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-auditmanager==1.116.0
+aws-cdk.aws-auditmanager==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-autoscaling-common==1.116.0
+aws-cdk.aws-autoscaling-common==1.121.0
     # via
     #   aws-cdk.aws-applicationautoscaling
     #   aws-cdk.aws-autoscaling
-aws-cdk.aws-autoscaling-hooktargets==1.116.0
+aws-cdk.aws-autoscaling-hooktargets==1.121.0
     # via aws-cdk.aws-ecs
-aws-cdk.aws-autoscaling==1.116.0
+aws-cdk.aws-autoscaling==1.121.0
     # via
     #   aws-cdk.aws-autoscaling-hooktargets
     #   aws-cdk.aws-codedeploy
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-eks
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-autoscalingplans==1.116.0
+aws-cdk.aws-autoscalingplans==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-backup==1.116.0
+aws-cdk.aws-backup==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-batch==1.116.0
+aws-cdk.aws-batch==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-budgets==1.116.0
+aws-cdk.aws-budgets==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-cassandra==1.116.0
+aws-cdk.aws-cassandra==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-ce==1.116.0
+aws-cdk.aws-ce==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-certificatemanager==1.116.0
+aws-cdk.aws-certificatemanager==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-apigatewayv2
@@ -95,19 +95,19 @@ aws-cdk.aws-certificatemanager==1.116.0
     #   aws-cdk.aws-elasticloadbalancingv2
     #   aws-cdk.aws-elasticsearch
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-chatbot==1.116.0
+aws-cdk.aws-chatbot==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-cloud9==1.116.0
+aws-cdk.aws-cloud9==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-cloudformation==1.116.0
+aws-cdk.aws-cloudformation==1.121.0
     # via aws-cdk.custom-resources
-aws-cdk.aws-cloudfront==1.116.0
+aws-cdk.aws-cloudfront==1.121.0
     # via
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-cloudtrail==1.116.0
+aws-cdk.aws-cloudtrail==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-cloudwatch==1.116.0
+aws-cdk.aws-cloudwatch==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-apigatewayv2
@@ -133,79 +133,80 @@ aws-cdk.aws-cloudwatch==1.116.0
     #   aws-cdk.aws-stepfunctions
     #   aws-cdk.aws-synthetics
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-codeartifact==1.116.0
+aws-cdk.aws-codeartifact==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codebuild==1.116.0
+aws-cdk.aws-codebuild==1.121.0
     # via
     #   aws-cdk.aws-amplify
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-codecommit==1.116.0
+aws-cdk.aws-codecommit==1.121.0
     # via
     #   aws-cdk.aws-amplify
     #   aws-cdk.aws-cloud9
     #   aws-cdk.aws-codebuild
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-codedeploy==1.116.0
+aws-cdk.aws-codedeploy==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codeguruprofiler==1.116.0
+aws-cdk.aws-codeguruprofiler==1.121.0
     # via
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-codegurureviewer==1.116.0
+aws-cdk.aws-codegurureviewer==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codepipeline==1.116.0
+aws-cdk.aws-codepipeline==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codestar==1.116.0
+aws-cdk.aws-codestar==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codestarconnections==1.116.0
+aws-cdk.aws-codestarconnections==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-codestarnotifications==1.116.0
+aws-cdk.aws-codestarnotifications==1.121.0
     # via
     #   aws-cdk.aws-chatbot
     #   aws-cdk.aws-codebuild
+    #   aws-cdk.aws-codecommit
     #   aws-cdk.aws-codepipeline
     #   aws-cdk.aws-sns
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-cognito==1.116.0
+aws-cdk.aws-cognito==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-appsync
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-config==1.116.0
+aws-cdk.aws-config==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-connect==1.116.0
+aws-cdk.aws-connect==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-cur==1.116.0
+aws-cdk.aws-cur==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-customerprofiles==1.116.0
+aws-cdk.aws-customerprofiles==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-databrew==1.116.0
+aws-cdk.aws-databrew==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-datapipeline==1.116.0
+aws-cdk.aws-datapipeline==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-datasync==1.116.0
+aws-cdk.aws-datasync==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-dax==1.116.0
+aws-cdk.aws-dax==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-detective==1.116.0
+aws-cdk.aws-detective==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-devopsguru==1.116.0
+aws-cdk.aws-devopsguru==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-directoryservice==1.116.0
+aws-cdk.aws-directoryservice==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-dlm==1.116.0
+aws-cdk.aws-dlm==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-dms==1.116.0
+aws-cdk.aws-dms==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-docdb==1.116.0
+aws-cdk.aws-docdb==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-dynamodb==1.116.0
+aws-cdk.aws-dynamodb==1.121.0
     # via
     #   aws-cdk.aws-appsync
     #   aws-cdk.aws-backup
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-ec2==1.116.0
+aws-cdk.aws-ec2==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-apigatewayv2
@@ -236,16 +237,17 @@ aws-cdk.aws-ec2==1.116.0
     #   aws-cdk.aws-redshift
     #   aws-cdk.aws-route53
     #   aws-cdk.aws-route53-targets
+    #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-secretsmanager
     #   aws-cdk.aws-servicediscovery
     #   aws-cdk.cloudformation-include
     #   aws-cdk.custom-resources
-aws-cdk.aws-ecr-assets==1.116.0
+aws-cdk.aws-ecr-assets==1.121.0
     # via
     #   aws-cdk.aws-codebuild
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-lambda
-aws-cdk.aws-ecr==1.116.0
+aws-cdk.aws-ecr==1.121.0
     # via
     #   aws-cdk.aws-batch
     #   aws-cdk.aws-codebuild
@@ -253,30 +255,30 @@ aws-cdk.aws-ecr==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-ecs==1.116.0
+aws-cdk.aws-ecs==1.121.0
     # via
     #   aws-cdk.aws-batch
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-efs==1.116.0
+aws-cdk.aws-efs==1.121.0
     # via
     #   aws-cdk.aws-backup
     #   aws-cdk.aws-docdb
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-eks==1.116.0
+aws-cdk.aws-eks==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-elasticache==1.116.0
+aws-cdk.aws-elasticache==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-elasticbeanstalk==1.116.0
+aws-cdk.aws-elasticbeanstalk==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-elasticloadbalancing==1.116.0
+aws-cdk.aws-elasticloadbalancing==1.121.0
     # via
     #   aws-cdk.aws-autoscaling
     #   aws-cdk.aws-codedeploy
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-elasticloadbalancingv2==1.116.0
+aws-cdk.aws-elasticloadbalancingv2==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-autoscaling
@@ -285,15 +287,15 @@ aws-cdk.aws-elasticloadbalancingv2==1.116.0
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.aws-servicediscovery
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-elasticsearch==1.116.0
+aws-cdk.aws-elasticsearch==1.121.0
     # via
     #   aws-cdk.aws-appsync
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-emr==1.116.0
+aws-cdk.aws-emr==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-emrcontainers==1.116.0
+aws-cdk.aws-emrcontainers==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-events==1.116.0
+aws-cdk.aws-events==1.121.0
     # via
     #   aws-cdk.aws-backup
     #   aws-cdk.aws-cloudtrail
@@ -308,35 +310,35 @@ aws-cdk.aws-events==1.116.0
     #   aws-cdk.aws-sns
     #   aws-cdk.aws-stepfunctions
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-eventschemas==1.116.0
+aws-cdk.aws-eventschemas==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-finspace==1.116.0
+aws-cdk.aws-finspace==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-fis==1.116.0
+aws-cdk.aws-fis==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-fms==1.116.0
+aws-cdk.aws-fms==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-frauddetector==1.116.0
+aws-cdk.aws-frauddetector==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-fsx==1.116.0
+aws-cdk.aws-fsx==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-gamelift==1.116.0
+aws-cdk.aws-gamelift==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-globalaccelerator==1.116.0
+aws-cdk.aws-globalaccelerator==1.121.0
     # via
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-glue==1.116.0
+aws-cdk.aws-glue==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-greengrass==1.116.0
+aws-cdk.aws-greengrass==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-greengrassv2==1.116.0
+aws-cdk.aws-greengrassv2==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-groundstation==1.116.0
+aws-cdk.aws-groundstation==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-guardduty==1.116.0
+aws-cdk.aws-guardduty==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iam==1.116.0
+aws-cdk.aws-iam==1.121.0
     # via
     #   aws-cdk.aws-amplify
     #   aws-cdk.aws-apigateway
@@ -397,41 +399,42 @@ aws-cdk.aws-iam==1.116.0
     #   aws-cdk.cloudformation-include
     #   aws-cdk.custom-resources
     #   cdk-chalice (setup.py)
-aws-cdk.aws-imagebuilder==1.116.0
+aws-cdk.aws-imagebuilder==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-inspector==1.116.0
+aws-cdk.aws-inspector==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iot1click==1.116.0
+aws-cdk.aws-iot1click==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iot==1.116.0
+aws-cdk.aws-iot==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotanalytics==1.116.0
+aws-cdk.aws-iotanalytics==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotcoredeviceadvisor==1.116.0
+aws-cdk.aws-iotcoredeviceadvisor==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotevents==1.116.0
+aws-cdk.aws-iotevents==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotfleethub==1.116.0
+aws-cdk.aws-iotfleethub==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotsitewise==1.116.0
+aws-cdk.aws-iotsitewise==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotthingsgraph==1.116.0
+aws-cdk.aws-iotthingsgraph==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-iotwireless==1.116.0
+aws-cdk.aws-iotwireless==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-ivs==1.116.0
+aws-cdk.aws-ivs==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-kendra==1.116.0
+aws-cdk.aws-kendra==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-kinesis==1.116.0
+aws-cdk.aws-kinesis==1.121.0
     # via
     #   aws-cdk.aws-dynamodb
+    #   aws-cdk.aws-kinesisfirehose
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-kinesisanalytics==1.116.0
+aws-cdk.aws-kinesisanalytics==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-kinesisfirehose==1.116.0
+aws-cdk.aws-kinesisfirehose==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-kms==1.116.0
+aws-cdk.aws-kms==1.121.0
     # via
     #   aws-cdk.aws-amplify
     #   aws-cdk.aws-autoscaling-hooktargets
@@ -450,6 +453,7 @@ aws-cdk.aws-kms==1.116.0
     #   aws-cdk.aws-fsx
     #   aws-cdk.aws-glue
     #   aws-cdk.aws-kinesis
+    #   aws-cdk.aws-kinesisfirehose
     #   aws-cdk.aws-lambda
     #   aws-cdk.aws-logs
     #   aws-cdk.aws-msk
@@ -463,9 +467,9 @@ aws-cdk.aws-kms==1.116.0
     #   aws-cdk.aws-sqs
     #   aws-cdk.aws-ssm
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-lakeformation==1.116.0
+aws-cdk.aws-lakeformation==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-lambda==1.116.0
+aws-cdk.aws-lambda==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-appsync
@@ -480,17 +484,18 @@ aws-cdk.aws-lambda==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-eks
     #   aws-cdk.aws-elasticloadbalancingv2
+    #   aws-cdk.aws-kinesisfirehose
     #   aws-cdk.aws-secretsmanager
     #   aws-cdk.aws-ses
     #   aws-cdk.cloudformation-include
     #   aws-cdk.custom-resources
     #   aws-cdk.lambda-layer-awscli
     #   aws-cdk.lambda-layer-kubectl
-aws-cdk.aws-licensemanager==1.116.0
+aws-cdk.aws-licensemanager==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-location==1.116.0
+aws-cdk.aws-location==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-logs==1.116.0
+aws-cdk.aws-logs==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-chatbot
@@ -500,6 +505,7 @@ aws-cdk.aws-logs==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-elasticsearch
     #   aws-cdk.aws-kinesis
+    #   aws-cdk.aws-kinesisfirehose
     #   aws-cdk.aws-lambda
     #   aws-cdk.aws-msk
     #   aws-cdk.aws-rds
@@ -507,66 +513,66 @@ aws-cdk.aws-logs==1.116.0
     #   aws-cdk.aws-stepfunctions
     #   aws-cdk.cloudformation-include
     #   aws-cdk.custom-resources
-aws-cdk.aws-lookoutequipment==1.116.0
+aws-cdk.aws-lookoutequipment==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-lookoutmetrics==1.116.0
+aws-cdk.aws-lookoutmetrics==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-lookoutvision==1.116.0
+aws-cdk.aws-lookoutvision==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-macie==1.116.0
+aws-cdk.aws-macie==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-managedblockchain==1.116.0
+aws-cdk.aws-managedblockchain==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-mediaconnect==1.116.0
+aws-cdk.aws-mediaconnect==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-mediaconvert==1.116.0
+aws-cdk.aws-mediaconvert==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-medialive==1.116.0
+aws-cdk.aws-medialive==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-mediapackage==1.116.0
+aws-cdk.aws-mediapackage==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-mediastore==1.116.0
+aws-cdk.aws-mediastore==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-msk==1.116.0
+aws-cdk.aws-msk==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-mwaa==1.116.0
+aws-cdk.aws-mwaa==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-neptune==1.116.0
+aws-cdk.aws-neptune==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-networkfirewall==1.116.0
+aws-cdk.aws-networkfirewall==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-networkmanager==1.116.0
+aws-cdk.aws-networkmanager==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-nimblestudio==1.116.0
+aws-cdk.aws-nimblestudio==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-opsworks==1.116.0
+aws-cdk.aws-opsworks==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-opsworkscm==1.116.0
+aws-cdk.aws-opsworkscm==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-pinpoint==1.116.0
+aws-cdk.aws-pinpoint==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-pinpointemail==1.116.0
+aws-cdk.aws-pinpointemail==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-qldb==1.116.0
+aws-cdk.aws-qldb==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-quicksight==1.116.0
+aws-cdk.aws-quicksight==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-ram==1.116.0
+aws-cdk.aws-ram==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-rds==1.116.0
+aws-cdk.aws-rds==1.121.0
     # via
     #   aws-cdk.aws-appsync
     #   aws-cdk.aws-backup
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-redshift==1.116.0
+aws-cdk.aws-redshift==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-resourcegroups==1.116.0
+aws-cdk.aws-resourcegroups==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-robomaker==1.116.0
+aws-cdk.aws-robomaker==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-route53-targets==1.116.0
+aws-cdk.aws-route53-targets==1.121.0
     # via aws-cdk.aws-ecs
-aws-cdk.aws-route53==1.116.0
+aws-cdk.aws-route53==1.121.0
     # via
     #   aws-cdk.aws-certificatemanager
     #   aws-cdk.aws-ecs
@@ -574,9 +580,13 @@ aws-cdk.aws-route53==1.116.0
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.aws-servicediscovery
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-route53resolver==1.116.0
+aws-cdk.aws-route53recoverycontrol==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-s3-assets==1.116.0
+aws-cdk.aws-route53recoveryreadiness==1.121.0
+    # via aws-cdk.cloudformation-include
+aws-cdk.aws-route53resolver==1.121.0
+    # via aws-cdk.cloudformation-include
+aws-cdk.aws-s3-assets==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-appsync
@@ -585,10 +595,11 @@ aws-cdk.aws-s3-assets==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-lambda
     #   aws-cdk.aws-logs
+    #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-servicecatalog
     #   aws-cdk.aws-synthetics
     #   cdk-chalice (setup.py)
-aws-cdk.aws-s3==1.116.0
+aws-cdk.aws-s3==1.121.0
     # via
     #   aws-cdk.aws-apigateway
     #   aws-cdk.aws-cloudfront
@@ -602,28 +613,30 @@ aws-cdk.aws-s3==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-elasticloadbalancingv2
     #   aws-cdk.aws-glue
+    #   aws-cdk.aws-kinesisfirehose
     #   aws-cdk.aws-lambda
     #   aws-cdk.aws-msk
     #   aws-cdk.aws-rds
     #   aws-cdk.aws-redshift
     #   aws-cdk.aws-route53-targets
+    #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-s3-assets
     #   aws-cdk.aws-stepfunctions
     #   aws-cdk.aws-synthetics
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-s3objectlambda==1.116.0
+aws-cdk.aws-s3objectlambda==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-s3outposts==1.116.0
+aws-cdk.aws-s3outposts==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-sagemaker==1.116.0
+aws-cdk.aws-sagemaker==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-sam==1.116.0
+aws-cdk.aws-sam==1.121.0
     # via
     #   aws-cdk.aws-secretsmanager
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-sdb==1.116.0
+aws-cdk.aws-sdb==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-secretsmanager==1.116.0
+aws-cdk.aws-secretsmanager==1.121.0
     # via
     #   aws-cdk.aws-amplify
     #   aws-cdk.aws-appsync
@@ -636,26 +649,26 @@ aws-cdk.aws-secretsmanager==1.116.0
     #   aws-cdk.aws-rds
     #   aws-cdk.aws-redshift
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-securityhub==1.116.0
+aws-cdk.aws-securityhub==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-servicecatalog==1.116.0
+aws-cdk.aws-servicecatalog==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-servicecatalogappregistry==1.116.0
+aws-cdk.aws-servicecatalogappregistry==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-servicediscovery==1.116.0
+aws-cdk.aws-servicediscovery==1.121.0
     # via
     #   aws-cdk.aws-appmesh
     #   aws-cdk.aws-ecs
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-ses==1.116.0
+aws-cdk.aws-ses==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-signer==1.116.0
+aws-cdk.aws-signer==1.121.0
     # via
     #   aws-cdk.aws-lambda
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-sns-subscriptions==1.116.0
+aws-cdk.aws-sns-subscriptions==1.121.0
     # via aws-cdk.aws-autoscaling-hooktargets
-aws-cdk.aws-sns==1.116.0
+aws-cdk.aws-sns==1.121.0
     # via
     #   aws-cdk.aws-autoscaling
     #   aws-cdk.aws-autoscaling-hooktargets
@@ -667,14 +680,14 @@ aws-cdk.aws-sns==1.116.0
     #   aws-cdk.aws-servicecatalog
     #   aws-cdk.cloudformation-include
     #   aws-cdk.custom-resources
-aws-cdk.aws-sqs==1.116.0
+aws-cdk.aws-sqs==1.121.0
     # via
     #   aws-cdk.aws-autoscaling-hooktargets
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-lambda
     #   aws-cdk.aws-sns
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-ssm==1.116.0
+aws-cdk.aws-ssm==1.121.0
     # via
     #   aws-cdk.aws-batch
     #   aws-cdk.aws-cloudfront
@@ -682,31 +695,31 @@ aws-cdk.aws-ssm==1.116.0
     #   aws-cdk.aws-ecs
     #   aws-cdk.aws-eks
     #   aws-cdk.cloudformation-include
-aws-cdk.aws-ssmcontacts==1.116.0
+aws-cdk.aws-ssmcontacts==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-ssmincidents==1.116.0
+aws-cdk.aws-ssmincidents==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-sso==1.116.0
+aws-cdk.aws-sso==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-stepfunctions==1.116.0
+aws-cdk.aws-stepfunctions==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-synthetics==1.116.0
+aws-cdk.aws-synthetics==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-timestream==1.116.0
+aws-cdk.aws-timestream==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-transfer==1.116.0
+aws-cdk.aws-transfer==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-waf==1.116.0
+aws-cdk.aws-waf==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-wafregional==1.116.0
+aws-cdk.aws-wafregional==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-wafv2==1.116.0
+aws-cdk.aws-wafv2==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-workspaces==1.116.0
+aws-cdk.aws-workspaces==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.aws-xray==1.116.0
+aws-cdk.aws-xray==1.121.0
     # via aws-cdk.cloudformation-include
-aws-cdk.cloud-assembly-schema==1.116.0
+aws-cdk.cloud-assembly-schema==1.121.0
     # via
     #   aws-cdk.aws-ec2
     #   aws-cdk.aws-efs
@@ -715,9 +728,9 @@ aws-cdk.cloud-assembly-schema==1.116.0
     #   aws-cdk.aws-ssm
     #   aws-cdk.core
     #   aws-cdk.cx-api
-aws-cdk.cloudformation-include==1.116.0
+aws-cdk.cloudformation-include==1.121.0
     # via cdk-chalice (setup.py)
-aws-cdk.core==1.116.0
+aws-cdk.core==1.121.0
     # via
     #   aws-cdk.alexa-ask
     #   aws-cdk.assets
@@ -858,6 +871,8 @@ aws-cdk.core==1.116.0
     #   aws-cdk.aws-robomaker
     #   aws-cdk.aws-route53
     #   aws-cdk.aws-route53-targets
+    #   aws-cdk.aws-route53recoverycontrol
+    #   aws-cdk.aws-route53recoveryreadiness
     #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-s3
     #   aws-cdk.aws-s3-assets
@@ -893,7 +908,7 @@ aws-cdk.core==1.116.0
     #   aws-cdk.lambda-layer-awscli
     #   aws-cdk.lambda-layer-kubectl
     #   cdk-chalice (setup.py)
-aws-cdk.custom-resources==1.116.0
+aws-cdk.custom-resources==1.121.0
     # via
     #   aws-cdk.aws-codedeploy
     #   aws-cdk.aws-cognito
@@ -903,10 +918,11 @@ aws-cdk.custom-resources==1.116.0
     #   aws-cdk.aws-globalaccelerator
     #   aws-cdk.aws-msk
     #   aws-cdk.aws-route53
-aws-cdk.cx-api==1.116.0
+aws-cdk.cx-api==1.121.0
     # via
     #   aws-cdk.assets
     #   aws-cdk.aws-apigateway
+    #   aws-cdk.aws-cloudfront
     #   aws-cdk.aws-ec2
     #   aws-cdk.aws-ecr-assets
     #   aws-cdk.aws-ecs
@@ -919,34 +935,35 @@ aws-cdk.cx-api==1.116.0
     #   aws-cdk.aws-s3-assets
     #   aws-cdk.aws-secretsmanager
     #   aws-cdk.core
-aws-cdk.lambda-layer-awscli==1.116.0
+aws-cdk.lambda-layer-awscli==1.121.0
     # via aws-cdk.aws-eks
-aws-cdk.lambda-layer-kubectl==1.116.0
+aws-cdk.lambda-layer-kubectl==1.121.0
     # via aws-cdk.aws-eks
-aws-cdk.region-info==1.116.0
+aws-cdk.region-info==1.121.0
     # via
     #   aws-cdk.aws-codebuild
     #   aws-cdk.aws-ec2
     #   aws-cdk.aws-elasticloadbalancingv2
     #   aws-cdk.aws-iam
     #   aws-cdk.aws-kinesisfirehose
+    #   aws-cdk.aws-lambda
     #   aws-cdk.aws-route53-targets
     #   aws-cdk.core
 blessed==1.17.6
     # via inquirer
-botocore==1.21.11
+botocore==1.21.35
     # via chalice
-cattrs==1.6.0
+cattrs==1.8.0
     # via jsii
 certifi==2021.5.30
     # via requests
-chalice==1.24.0
+chalice==1.24.2
     # via cdk-chalice (setup.py)
 charset-normalizer==2.0.4
     # via requests
-click==7.1.2
+click==8.0.1
     # via chalice
-constructs==3.3.110
+constructs==3.3.141
     # via
     #   aws-cdk.alexa-ask
     #   aws-cdk.assets
@@ -1073,17 +1090,19 @@ constructs==3.3.110
     #   aws-cdk.custom-resources
     #   aws-cdk.lambda-layer-awscli
     #   aws-cdk.lambda-layer-kubectl
-docker==5.0.0
+docker==5.0.2
     # via cdk-chalice (setup.py)
 idna==3.2
     # via requests
+importlib-metadata==4.8.1
+    # via click
 inquirer==2.7.0
     # via chalice
 jmespath==0.10.0
     # via
     #   botocore
     #   chalice
-jsii==1.32.0
+jsii==1.34.0
     # via
     #   aws-cdk.alexa-ask
     #   aws-cdk.assets
@@ -1224,6 +1243,8 @@ jsii==1.32.0
     #   aws-cdk.aws-robomaker
     #   aws-cdk.aws-route53
     #   aws-cdk.aws-route53-targets
+    #   aws-cdk.aws-route53recoverycontrol
+    #   aws-cdk.aws-route53recoveryreadiness
     #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-s3
     #   aws-cdk.aws-s3-assets
@@ -1406,6 +1427,8 @@ publication==0.0.3
     #   aws-cdk.aws-robomaker
     #   aws-cdk.aws-route53
     #   aws-cdk.aws-route53-targets
+    #   aws-cdk.aws-route53recoverycontrol
+    #   aws-cdk.aws-route53recoveryreadiness
     #   aws-cdk.aws-route53resolver
     #   aws-cdk.aws-s3
     #   aws-cdk.aws-s3-assets
@@ -1462,18 +1485,22 @@ six==1.16.0
     #   blessed
     #   chalice
     #   python-dateutil
-typing-extensions==3.10.0.0
-    # via jsii
+typing-extensions==3.10.0.2
+    # via
+    #   importlib-metadata
+    #   jsii
 urllib3==1.26.6
     # via
     #   botocore
     #   requests
 wcwidth==0.2.5
     # via blessed
-websocket-client==1.1.0
+websocket-client==1.2.1
     # via docker
-wheel==0.36.2
+wheel==0.37.0
     # via chalice
+zipp==3.5.0
+    # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

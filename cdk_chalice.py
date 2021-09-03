@@ -148,7 +148,7 @@ class Chalice(cdk.Construct):
 
     def _create_stage_with_config(self) -> None:
         config_path = os.path.join(self.source_dir, ".chalice/config.json")
-        with open(config_path, "r+") as config_file:
+        with open(config_path, "r+", encoding="utf_8") as config_file:
             config = json.load(config_file)
             if "stages" not in config:
                 config["stages"] = {}
@@ -227,7 +227,7 @@ class Chalice(cdk.Construct):
             chalice_out_dir, f"{package_id}.sam_with_assets.json"
         )
 
-        with open(sam_template_path) as sam_template_file:
+        with open(sam_template_path, encoding="utf_8") as sam_template_file:
             sam_template = json.load(sam_template_file)
 
             functions = filter(
@@ -239,7 +239,9 @@ class Chalice(cdk.Construct):
                     "Bucket": sam_deployment_asset.s3_bucket_name,
                     "Key": sam_deployment_asset.s3_object_key,
                 }
-        with open(sam_template_with_assets_path, "w") as sam_template_with_assets_file:
+        with open(
+            sam_template_with_assets_path, "w", encoding="utf_8"
+        ) as sam_template_with_assets_file:
             sam_template_with_assets_file.write(json.dumps(sam_template, indent=2))
 
         return sam_template_with_assets_path
