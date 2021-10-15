@@ -1,3 +1,6 @@
 {
-    "repo_id": "yqtBQZgmK8j0hQNR73oD"
+    "repo_id": "yqtBQZgmK8j0hQNR73oD",
+    "configuration": {
+        "swmd": true
+    }
 }
