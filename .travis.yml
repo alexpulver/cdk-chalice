@@ -13,7 +13,9 @@ script:
 - make --directory docs html
 after_success:
 - coverage xml
-- bash <(curl -s https://codecov.io/bash)
+- curl -Os https://uploader.codecov.io/latest/linux/codecov
+- chmod +x codecov
+- ./codecov
 deploy:
 - provider: pypi
   username: __token__
