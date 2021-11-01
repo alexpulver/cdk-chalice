@@ -959,7 +959,7 @@ certifi==2021.5.30
     # via requests
 chalice==1.24.2
     # via cdk-chalice (setup.py)
-charset-normalizer==2.0.4
+charset-normalizer==2.0.7
     # via requests
 click==8.0.1
     # via chalice
