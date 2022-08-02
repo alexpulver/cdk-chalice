@@ -6,25 +6,25 @@
 #
 alabaster==0.7.12
     # via sphinx
-astroid==2.11.5
+astroid==2.11.7
     # via pylint
-babel==2.10.1
+babel==2.10.3
     # via sphinx
 bandit==1.7.4
     # via -r requirements-dev.in
-black==22.3.0
+black==22.6.0
     # via -r requirements-dev.in
-bleach==5.0.0
+bleach==5.0.1
     # via readme-renderer
 bump2version==1.0.1
     # via -r requirements-dev.in
-certifi==2022.5.18.1
+certifi==2022.6.15
     # via
     #   -c requirements.txt
     #   requests
 changelog-cli==0.7.1
     # via -r requirements-dev.in
-charset-normalizer==2.0.12
+charset-normalizer==2.1.0
     # via
     #   -c requirements.txt
     #   requests
@@ -35,11 +35,11 @@ click==8.1.3
     #   changelog-cli
 commonmark==0.9.1
     # via rich
-coverage==6.4
+coverage==6.4.2
     # via -r requirements-dev.in
 dill==0.3.5.1
     # via pylint
-docutils==0.17.1
+docutils==0.19
     # via
     #   readme-renderer
     #   sphinx
@@ -51,9 +51,9 @@ idna==3.3
     # via
     #   -c requirements.txt
     #   requests
-imagesize==1.3.0
+imagesize==1.4.1
     # via sphinx
-importlib-metadata==4.11.4
+importlib-metadata==4.12.0
     # via
     #   -c requirements.txt
     #   click
@@ -67,7 +67,7 @@ isort==5.10.1
     #   pylint
 jinja2==3.1.2
     # via sphinx
-keyring==23.5.1
+keyring==23.7.0
     # via twine
 lazy-object-proxy==1.7.1
     # via astroid
@@ -75,7 +75,7 @@ markupsafe==2.1.1
     # via jinja2
 mccabe==0.7.0
     # via pylint
-mypy==0.960
+mypy==0.971
     # via -r requirements-dev.in
 mypy-extensions==0.4.3
     # via
@@ -88,7 +88,7 @@ pathspec==0.9.0
     # via black
 pbr==5.9.0
     # via stevedore
-pkginfo==1.8.2
+pkginfo==1.8.3
     # via twine
 platformdirs==2.5.2
     # via
@@ -99,7 +99,7 @@ pygments==2.12.0
     #   readme-renderer
     #   rich
     #   sphinx
-pylint==2.13.9
+pylint==2.14.5
     # via -r requirements-dev.in
 pyparsing==3.0.9
     # via packaging
@@ -111,7 +111,7 @@ pyyaml==6.0
     #   bandit
 readme-renderer==35.0
     # via twine
-requests==2.27.1
+requests==2.28.1
     # via
     #   -c requirements.txt
     #   requests-toolbelt
@@ -121,7 +121,7 @@ requests-toolbelt==0.9.1
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==12.4.4
+rich==12.5.1
     # via twine
 six==1.16.0
     # via
@@ -131,7 +131,7 @@ smmap==5.0.0
     # via gitdb
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==4.5.0
+sphinx==5.1.1
     # via -r requirements-dev.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
@@ -152,14 +152,16 @@ tomli==2.0.1
     #   black
     #   mypy
     #   pylint
-twine==4.0.0
+tomlkit==0.11.1
+    # via pylint
+twine==4.0.1
     # via -r requirements-dev.in
 typed-ast==1.5.4
     # via
     #   astroid
     #   black
     #   mypy
-typing-extensions==4.2.0
+typing-extensions==4.3.0
     # via
     #   -c requirements.txt
     #   astroid
@@ -169,7 +171,7 @@ typing-extensions==4.2.0
     #   mypy
     #   pylint
     #   rich
-urllib3==1.26.9
+urllib3==1.26.11
     # via
     #   -c requirements.txt
     #   requests
@@ -182,7 +184,7 @@ wheel==0.37.1
     #   -r requirements-dev.in
 wrapt==1.14.1
     # via astroid
-zipp==3.8.0
+zipp==3.8.1
     # via
     #   -c requirements.txt
     #   importlib-metadata

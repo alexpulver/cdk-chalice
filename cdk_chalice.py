@@ -187,8 +187,8 @@ class Chalice(cdk.Construct):
         except docker.errors.NotFound as not_found_error:
             message = (
                 "Could not find the specified Docker image:"
-                f" {self.package_config.image}. When using the default lambci/lambda"
-                " images, make sure your Python version is supported. See AWS Lambda"
+                f" {self.package_config.image}. When using the default images"
+                " make sure your Python version is supported. See AWS Lambda"
                 " Runtimes documentation for supported versions:"
                 " https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html"
             )
