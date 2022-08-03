@@ -1,12 +1,12 @@
 language: python
 python:
-- 3.7
+- 3.7.2
 - 3.8
 - 3.9
 cache: pip
 services: docker
 before_install:
-- nvm use 11
+- nvm use 16
 install: ./scripts/install-deps.sh
 script:
 - ./scripts/run-tests.sh
