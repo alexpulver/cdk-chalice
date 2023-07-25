@@ -1088,7 +1088,7 @@ botocore==1.27.44
     # via chalice
 cattrs==22.1.0
     # via jsii
-certifi==2022.6.15
+certifi==2023.7.22
     # via requests
 chalice==1.27.1
     # via cdk-chalice (setup.py)
